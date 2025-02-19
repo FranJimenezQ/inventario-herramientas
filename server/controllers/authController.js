@@ -82,22 +82,25 @@ export const loginUsuario = async (req, res) => {
             if (!usuarioExistente) {
                 return res.status(404).json({ message: "Usuario no encontrado" });
             }
-            // Object.keys(nuevosDatos).forEach((key) => {
-            //     if (key !== 'password') {
-            //         usuarioExistente[key] = nuevosDatos[key];
-            //      }          
-            // });
 
-            if (nuevosDatos.nombre) usuarioExistente.nombre = nuevosDatos.nombre || usuarioExistente.nombre;
-            if (nuevosDatos.apellido) usuarioExistente.apellido = nuevosDatos.apellido || usuarioExistente.apellido;
-            if (nuevosDatos.email) usuarioExistente.email = nuevosDatos.email || usuarioExistente.email;
-            if (nuevosDatos.rol) usuarioExistente.rol = nuevosDatos.rol || usuarioExistente.rol;
+        if (!nuevosDatos.email) {
+            nuevosDatos.email = usuarioExistente.email;
+        }
 
-            if(nuevosDatos.password) {
-                const salt = await bcrypt.genSalt(10);
-                usuarioExistente.password = await bcrypt.hash(nuevosDatos.password, salt);
-            }
-            const usuarioActualizado = await usuarioExistente.save();
+        if (nuevosDatos.password) {
+            const salt = await bcrypt.genSalt(10);
+            nuevosDatos.password = await bcrypt.hash(nuevosDatos.password, salt);
+        } else {
+            nuevosDatos.password = usuarioExistente.password; 
+        }
+
+        const usuarioActualizado = await Usuario.findOneAndUpdate(
+            { id }, 
+            { $set: nuevosDatos }, 
+            { new: true, runValidators: true }
+        );
+
+            //const usuarioActualizado = await usuarioExistente.save();
             res.status(200).json({ 
                 message: "Usuario actualizado correctamente",
                 usuario: {
