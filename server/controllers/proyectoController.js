@@ -1,13 +1,13 @@
-import Proyecto from "../models/proyecto";
-import Herramienta from "../models/herramienta";
-import Movimiento from "../models/movimiento";
+import Proyecto from "../models/proyecto.js";
+import Herramienta from "../models/herramienta.js";
+import Movimiento from "../models/movimiento.js";
 
 export const obtenerHerramientaPorProyecto = async ( req, res) => {
     try {
         const { proyectoId } = req.params;
         const movimientos = await Movimiento.findById({proyectoId, fechaDeDevolucion: null}).populate('herramientaId', 'nombre codigo modelo');
 
-        const herramientas = await movimientos.map(movimiento => herramientas.id);
+        const herramientas = await movimientos.map(movimiento => movimiento.herramienta.id);
         res.status(200).json(herramientas);
     } catch (error) {
         console.error(error);

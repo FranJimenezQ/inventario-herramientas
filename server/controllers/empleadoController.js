@@ -1,9 +1,9 @@
-import EmpleadoProyecto from "../models/empleado";
+import EmpleadoProyecto from "../models/empleado.js";
 
 export const crearEmpleado = async (req, res) => {
-    const { nombre, apellido, cargo, id } = req.body;
+    const { nombre, apellido, cargo, idPersonal } = req.body;
     try {
-        const nuevoEmpleado = new EmpleadoProyecto({ nombre, apellido, cargo, id });
+        const nuevoEmpleado = new EmpleadoProyecto({ nombre, apellido, cargo, idPersonal });
         await nuevoEmpleado.save();
         res.status(201).json({ message: "Empleado creado correctamente", empleado: nuevoEmpleado });
     } catch (error) {
@@ -23,9 +23,9 @@ export const obtenerEmpleados = async (req, res) => {
 };
 
 export const obtenerEmpleadoPorId = async (req, res) => {
-    const { id } = req.params;
+    const { idPersonal } = req.params;
     try {
-        const empleado = await EmpleadoProyecto.findById(id);
+        const empleado = await EmpleadoProyecto.findOne(idPersonal);
         if (!empleado) {
             return res.status(404).json({ message: "Empleado no encontrado" });
         }
@@ -37,10 +37,10 @@ export const obtenerEmpleadoPorId = async (req, res) => {
 };
 
 export const actualizarEmpleado = async (req, res) => {
-    const { id } = req.params;
+    const { idPersonal } = req.params;
     const datosActualizados = req.body;
     try {
-        const empleado = await EmpleadoProyecto.findByIdAndUpdate(id, datosActualizados, { new: true });
+        const empleado = await EmpleadoProyecto.findByIdAndUpdate(idPersonal, datosActualizados, { new: true });
         if (!empleado) {
             return res.status(404).json({ message: "Empleado no encontrado" });
         }
@@ -52,9 +52,9 @@ export const actualizarEmpleado = async (req, res) => {
 };
 
 export const eliminarEmpleado = async (req, res) => {
-    const { id } = req.params;
+    const { idPersonal } = req.params;
     try {
-        const empleadoEliminado = await EmpleadoProyecto.findByIdAndDelete(id);
+        const empleadoEliminado = await EmpleadoProyecto.findByIdAndDelete(idPersonal);
         if (!empleadoEliminado) {
             return res.status(404).json({ message: "Empleado no encontrado" });
         }

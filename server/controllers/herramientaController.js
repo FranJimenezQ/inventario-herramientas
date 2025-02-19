@@ -1,6 +1,7 @@
-import Herramienta from "../modelsherramienta.js";
+import Herramienta from "../models/herramienta.js";
 import Usuario from "../models/usuario.js";
 import Proyecto from "../models/proyecto.js";
+import Movimiento from "../models/movimiento.js";
 
 
 //Crear una nueva herramienta
@@ -22,7 +23,7 @@ export const crearHerramienta = async (req, res) => {
 //Asignar una herramienta a un proyecto y un empleado
 export const asignarHerramienta = async (req, res) => {
     try {
-        const {id} = req.params.id;
+        const {id} = req.params;
         const {proyectoAsignado, usuarioAsignado} = req.body;
 
         const herramienta = await Herramienta.findById(id);
@@ -109,5 +110,20 @@ export const obtenerHerramientasPorProyecto = async (req, res) => {
         res.json(herramientas);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener herramientas por proyecto', error: error });
+    }
+};
+
+
+//Obtener historial por herramienta
+export const obtenerHistorialPorHerramienta = async (req, res) => {
+    try {
+        const { herramientaId } = req.params;
+        const historial = await Movimiento.find({ herramientaId: herramientaId })
+        .populate('proyectoAsignado', 'nombre')
+        .populate('usuarioAsignado', 'nombre')
+        .sort({fechaPrestamo: -1});
+        res.json(historial);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener historial por herramienta', error: error });
     }
 };

@@ -1,11 +1,16 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
-const JWT_SECRET  = 'mysecret';
+dotenv.config();
+const JWT_SECRET  = process.env.JWT_SECRET;
 
 export const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization').replace('Bearer ', '');
-
-    if (!token) return res.status(403).json({ message: 'Token requerido' });
+    const authHeader = req.headers('Authorization');
+    if (!authHeader || !authHeader.startswith('Bearer ')) {
+        return res.status(403).json({ message: 'Token requerido' });
+    }
+    
+    const token = authHeader.split(' ')[1];    
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);

@@ -1,15 +1,17 @@
 import express from 'express';
-import { crearHerramienta, obtenerHerramientaPorId, obtenerHerramientas, actualizarHerramienta, eliminarHerramienta, asignarHerramienta, obtenerHerramientasPorProyecto } from '../controllers/herramientaController.js';
+import { crearHerramienta, obtenerHerramientaPorId, obtenerHerramientas, 
+    actualizarHerramienta, eliminarHerramienta, asignarHerramienta, obtenerHerramientasPorProyecto,
+    obtenerHistorialPorHerramienta } from '../controllers/herramientaController.js';
 
 const router = express.Router();
 
 router.post('/', crearHerramienta);
 router.get('/', obtenerHerramientas);
-router.get('/', obtenerHerramientaPorId);
+router.get('/:id', obtenerHerramientaPorId);
 router.put('/:id', actualizarHerramienta);
 router.delete('/:id', eliminarHerramienta);
-router.put('/:id', asignarHerramienta);
+router.put('/:id/asignar', asignarHerramienta);
 router.get('/proyecto/proyectoId', obtenerHerramientasPorProyecto);
-
+router.get('/herramientaId/historial', obtenerHistorialPorHerramienta);
 
 export default router;

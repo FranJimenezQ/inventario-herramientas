@@ -1,30 +1,51 @@
-import Usuario from "../models/usuario";
+import Usuario from "../models/usuario.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const JWT_SECRET = "mysecret";
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 //Registro de nuevo usuario
 export const registrarUsuario = async (req, res) => {
     try {
-        const { nombre, apellido, id, rol, password } = req.body;
+        const { nombre, apellido, email, id, rol, password } = req.body;
 
-        //Verificar si el usuario ya existe
+        // Validar campos requeridos
+        if (!nombre || !apellido || !email || !id || !rol || !password) {
+            return res.status(400).json({ message: "Todos los campos son obligatorios" });
+        }
+
+        // Verificar si el email o ID ya están registrados
+        const existeEmail = await Usuario.findOne({ email });
+        if (existeEmail) {
+            return res.status(400).json({ message: "El email ya está registrado" });
+        }
+
         const existeUsuario = await Usuario.findOne({ id });
-        if (existeUsuario) return res.status(400).json({ message: "El usuario ya existe" });
+        if (existeUsuario) {
+            return res.status(400).json({ message: "El ID ya está registrado" });
+        }
 
-        //Hashear la contraseña
+        // Hashear la contraseña
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        //Crear el nuevo usuario
-        const nuevoUsuario = new Usuario({ nombre, apellido, id, rol, password: hashedPassword });
+        // Crear el nuevo usuario
+        const nuevoUsuario = new Usuario({
+            nombre,
+            apellido,
+            email,
+            id,
+            rol,
+            password: hashedPassword,
+        });
         await nuevoUsuario.save();
 
-        res.json({ message: "Usuario registrado correctamente" });
+        res.status(201).json({ message: "Usuario registrado correctamente" });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error en el server" });
+        console.error("Error al registrar usuario:", error.message);
+        res.status(500).json({ message: "Ocurrió un error en el servidor" });
     }
 };
 
@@ -50,3 +71,45 @@ export const loginUsuario = async (req, res) => {
         res.status(500).json({ message: "Error en el server" });
         }
     }
+
+    //Actualizar Usuario
+    export const actualizarUsuario = async (req, res) => {
+        const { id } = req.params;
+        const nuevosDatos = req.body || {};
+
+        try {
+            const usuarioExistente = await Usuario.findOne({id});
+            if (!usuarioExistente) {
+                return res.status(404).json({ message: "Usuario no encontrado" });
+            }
+            // Object.keys(nuevosDatos).forEach((key) => {
+            //     if (key !== 'password') {
+            //         usuarioExistente[key] = nuevosDatos[key];
+            //      }          
+            // });
+
+            if (nuevosDatos.nombre) usuarioExistente.nombre = nuevosDatos.nombre || usuarioExistente.nombre;
+            if (nuevosDatos.apellido) usuarioExistente.apellido = nuevosDatos.apellido || usuarioExistente.apellido;
+            if (nuevosDatos.email) usuarioExistente.email = nuevosDatos.email || usuarioExistente.email;
+            if (nuevosDatos.rol) usuarioExistente.rol = nuevosDatos.rol || usuarioExistente.rol;
+
+            if(nuevosDatos.password) {
+                const salt = await bcrypt.genSalt(10);
+                usuarioExistente.password = await bcrypt.hash(nuevosDatos.password, salt);
+            }
+            const usuarioActualizado = await usuarioExistente.save();
+            res.status(200).json({ 
+                message: "Usuario actualizado correctamente",
+                usuario: {
+                    id: usuarioActualizado.id,
+                    nombre: usuarioActualizado.nombre,
+                    apellido: usuarioActualizado.apellido,
+                    email: usuarioActualizado.email,
+                    rol: usuarioActualizado.rol,
+                    password: "*******" // No se devuelve la contraseña para seguridad.
+                } });
+        } catch (error) {
+            console.error("Error al actualizar usuario:", error.message);
+            res.status(500).json({ message: "Error al actualizar usuario", error: error });
+        }
+    };

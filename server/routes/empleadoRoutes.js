@@ -1,5 +1,5 @@
 import express from 'express';
-import { crearEmpleado, obtenerEmpleadoPorId, obtenerEmpleados, actualizarEmpleado, eliminarEmpleado } from '../controllers/empleadoController';
+import { crearEmpleado, obtenerEmpleadoPorId, obtenerEmpleados, actualizarEmpleado, eliminarEmpleado } from '../controllers/empleadoController.js';
 
 const router = express.Router();
 
