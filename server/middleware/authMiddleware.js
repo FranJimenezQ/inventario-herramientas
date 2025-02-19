@@ -5,7 +5,7 @@ dotenv.config();
 const JWT_SECRET  = process.env.JWT_SECRET;
 
 export const authMiddleware = (req, res, next) => {
-    const authHeader = req.headers('Authorization');
+    const authHeader = req.headers['Authorization'];
     if (!authHeader || !authHeader.startswith('Bearer ')) {
         return res.status(403).json({ message: 'Token requerido' });
     }

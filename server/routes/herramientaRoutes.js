@@ -5,7 +5,7 @@ import { crearHerramienta, obtenerHerramientaPorId, obtenerHerramientas,
 
 const router = express.Router();
 
-router.post('/', crearHerramienta);
+router.post('/registrarHerramienta', crearHerramienta);
 router.get('/', obtenerHerramientas);
 router.get('/:id', obtenerHerramientaPorId);
 router.put('/:id', actualizarHerramienta);

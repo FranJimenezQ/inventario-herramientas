@@ -6,10 +6,10 @@ const herramientasSchema = new mongoose.Schema({
     modelo: { type: String, required: true },
     tipo: { type: String, required: true},
     proyectoAsignado: { type: mongoose.Schema.Types.ObjectId, ref:'Proyecto' },
-    usuarioAsignado: { type: mongoose.Schema.Types.ObjectId, ref:'Usuario' },
+    empleadoAsignado: { type: mongoose.Schema.Types.ObjectId, ref:'EmpleadoProyecto' },
     fechaSalida: { type: Date},
     fechaRegreso: { type: Date},
-    id: { type: String, required: true, unique: true },
+    //id: { type: String, required: true, unique: true },
 });
 
 const Herramienta = mongoose.model('Herramienta', herramientasSchema)
