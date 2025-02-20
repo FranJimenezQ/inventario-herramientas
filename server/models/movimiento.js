@@ -6,7 +6,7 @@ const movimientoSchema = new mongoose.Schema({
     proyectoId: { type: mongoose.Schema.Types.ObjectId, ref: "Proyecto" },
     empleadoSolicitante: { type: mongoose.Schema.Types.ObjectId, ref: "EmpleadoProyecto" },
     fechaDePrestamo: { type: Date , required: true },
-    fechaDevolucion: { type: Date , required: true },
+    fechaDevolucion: { type: Date , default: null },
 });
 
 const Movimiento = mongoose.model("Movimiento", movimientoSchema);

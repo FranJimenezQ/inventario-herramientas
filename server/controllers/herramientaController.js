@@ -43,14 +43,14 @@ export const asignarHerramienta = async (req, res) => {
             proyectoId: proyectoAsignado,
             empleadoSolicitante: empleadoAsignado,
             fechaDePrestamo: new Date(),
-            fechaDevolucion: fechaDevolucion? new Date(fechaDevolucion) : null,
+            fechaDevolucion:  null,
         });
         await nuevoMovimiento.save();
 
         herramienta.proyectoAsignado = proyectoAsignado;
         herramienta.empleadoAsignado = empleadoAsignado;
         herramienta.fechaSalida = new Date();
-        herramienta.fechaRegreso = fechaDevolucion || null;
+        herramienta.fechaRegreso = null;
         await herramienta.save();
 
         res.status(200).json({message: 'Herramienta asignada correctamente', movimiento: nuevoMovimiento});
@@ -62,7 +62,9 @@ export const asignarHerramienta = async (req, res) => {
 // Obtener herramientas
 export const obtenerHerramientas = async (req, res) => {
     try {
-        const herramientas = await Herramienta.find();
+        const herramientas = await Herramienta.find()
+        .populate('proyectoAsignado', 'nombre numeroProyecto')
+        .populate('empleadoAsignado', 'nombre apellido');
         res.json(herramientas);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener herramientas', error: error });
@@ -145,3 +147,38 @@ export const obtenerHistorialPorHerramienta = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener historial por herramienta', error: error });
     }
 };
+
+// Devolver una  herramienta
+export const devolverHerramienta = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { fechaDevolucion } = req.body;
+
+        
+        if (!fechaDevolucion) {
+            return res.status(404).json({ message: 'Fecha de devolución requerida'});
+        }
+        const herramienta = await Herramienta.findById(id);
+        if (!herramienta) {
+            return res.status(404).json({message: 'Herramienta no encontrada'});
+        }
+
+        const movimiento = new Movimiento.findOne({
+            herramientaId: herramienta._id,
+            fechaDevolucion: null
+        }).sort({fechaDePrestamo: -1});
+        if (!movimiento) {  
+            return res.status(400).json({message: 'No hay movimientos recientes'} )
+        }
+        movimiento.fechaDevolucion = fechaDevolucion;
+        await movimiento.save();
+        herramienta.proyectoAsignado = null;
+        herramienta.empleadoAsignado = null;
+        herramienta.fechaRegreso = new Date();
+        await herramienta.save();
+        res.status(200).json({message: 'Herramienta devuelta correctamente', movimiento: movimiento});
+
+        } catch (error) {
+        res.status(400).json({ message:'Error al devolver herramienta', error: error });
+        }
+     }
