@@ -98,7 +98,7 @@ export const actualizarHerramienta = async (req, res) => {
             return res.status(404).json({message: 'Herramienta no encontrada'});
         }
 
-        res.status(200).json({message: 'Herramienta actualizada', herramienta: herramientaActual});
+        res.status(200).json({message: 'Herramienta actualizada', herramienta: herramientaActualizada});
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar herramienta', error: error });
     }
@@ -139,9 +139,9 @@ export const obtenerHistorialPorHerramienta = async (req, res) => {
     try {
         const { herramientaId } = req.params;
         const historial = await Movimiento.find({ herramientaId: herramientaId })
-        .populate('proyectoAsignado', 'nombre')
-        .populate('usuarioAsignado', 'nombre')
-        .sort({fechaPrestamo: -1});
+        .populate('proyectoId', 'nombre')
+        .populate('empleadoSolicitante', 'nombre')
+        .sort({fechaSalida: -1});
         res.json(historial);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener historial por herramienta', error: error });
