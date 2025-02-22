@@ -14,5 +14,5 @@ router.delete('/:id', eliminarHerramienta);
 router.put('/:id/asignar', asignarHerramienta);
 router.get('/proyecto/:proyectoId', obtenerHerramientasPorProyecto);
 router.get('/:herramientaId/historial', obtenerHistorialPorHerramienta);
-router.put('/id:/devolver', devolverHerramienta);
+router.put('/:herramientaId/devolver', devolverHerramienta);
 export default router;

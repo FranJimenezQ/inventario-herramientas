@@ -151,19 +151,19 @@ export const obtenerHistorialPorHerramienta = async (req, res) => {
 // Devolver una  herramienta
 export const devolverHerramienta = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { herramientaId } = req.params;
         const { fechaDevolucion } = req.body;
 
         
         if (!fechaDevolucion) {
             return res.status(404).json({ message: 'Fecha de devolución requerida'});
         }
-        const herramienta = await Herramienta.findById(id);
+        const herramienta = await Herramienta.findById(herramientaId);
         if (!herramienta) {
             return res.status(404).json({message: 'Herramienta no encontrada'});
         }
 
-        const movimiento = new Movimiento.findOne({
+        const movimiento = await Movimiento.findOne({
             herramientaId: herramienta._id,
             fechaDevolucion: null
         }).sort({fechaDePrestamo: -1});
