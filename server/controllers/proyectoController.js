@@ -16,6 +16,7 @@ export const crearProyecto = async (req, res) => {
     }
 };
 
+//Obtener las herramientas asignadas a un proyecto
 export const obtenerHerramientaPorProyecto = async ( req, res) => {
     try {
         const { proyectoId } = req.params;
@@ -28,3 +29,19 @@ export const obtenerHerramientaPorProyecto = async ( req, res) => {
         res.status(500).json({ message: "Error al obtener herramientas por proyecto", error: error });
      }
 }
+
+//Eliminar un proyecto
+export const eliminarProyecto = async (req, res) => {
+    const { numeroProyecto } = req.params;
+
+    try {
+        const proyectoEliminado = await Proyecto.findOneAndDelete({numeroProyecto: numeroProyecto});
+        if (!proyectoEliminado) {
+            return res.status(404).json({ message: "Proyecto no encontrado" });
+        }
+        res.json({ message: "Proyecto eliminado correctamente" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al eliminar proyecto", error: error });
+    }
+};

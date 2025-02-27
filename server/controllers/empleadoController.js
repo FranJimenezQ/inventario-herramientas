@@ -40,7 +40,7 @@ export const actualizarEmpleado = async (req, res) => {
     const { idPersonal } = req.params;
     const datosActualizados = req.body;
     try {
-        const empleado = await EmpleadoProyecto.findByIdAndUpdate(idPersonal, datosActualizados, { new: true });
+        const empleado = await EmpleadoProyecto.findOneAndUpdate({idPersonal: idPersonal}, datosActualizados, { new: true });
         if (!empleado) {
             return res.status(404).json({ message: "Empleado no encontrado" });
         }
@@ -54,7 +54,7 @@ export const actualizarEmpleado = async (req, res) => {
 export const eliminarEmpleado = async (req, res) => {
     const { idPersonal } = req.params;
     try {
-        const empleadoEliminado = await EmpleadoProyecto.findByIdAndDelete(idPersonal);
+        const empleadoEliminado = await EmpleadoProyecto.findOneAndDelete({idPersonal: idPersonal});
         if (!empleadoEliminado) {
             return res.status(404).json({ message: "Empleado no encontrado" });
         }
