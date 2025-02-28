@@ -3,7 +3,7 @@ import {crearProyecto, eliminarProyecto, obtenerHerramientaPorProyecto} from '..
 
 const router = express.Router();
 
-router.get('/:proyectoId/herramientas', obtenerHerramientaPorProyecto);
+router.get('/:numeroProyecto/herramientas', obtenerHerramientaPorProyecto);
 router.delete('/:numeroProyecto', eliminarProyecto);
 router.post('/registrarProyecto', crearProyecto);
 export default router;

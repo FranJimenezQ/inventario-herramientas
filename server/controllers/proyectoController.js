@@ -18,11 +18,23 @@ export const crearProyecto = async (req, res) => {
 
 //Obtener las herramientas asignadas a un proyecto
 export const obtenerHerramientaPorProyecto = async ( req, res) => {
+    const { numeroProyecto } = req.params;
     try {
-        const { proyectoId } = req.params;
-        const movimientos = await Movimiento.findById({proyectoId, fechaDeDevolucion: null}).populate('herramientaId', 'nombre codigo modelo');
-
-        const herramientas = await movimientos.map(movimiento => movimiento.herramienta.id);
+        const proyecto = await Proyecto.findOne({ numeroProyecto });
+        if (!proyecto) {
+            return res.status(404).json({message: 'Proyecto no encontrado'});
+        }
+        const movimientos = await Movimiento.find({proyectoId: proyecto._id})
+         .populate({ path: 'herramientaId', select: 'nombre marca modelo' })
+         .populate({ path: 'empleadoSolicitante', select: 'nombre apellido' });
+        
+        if (!movimientos.length){
+            return res.status(404).json({ message: "No hay movimientos para este proyecto" });
+        }
+        const herramientas =  movimientos.map(mov => ({
+            herramienta: mov.herramientaId,
+            empleadoSolicitante: mov.empleadoSolicitante || null
+        }));
         res.status(200).json(herramientas);
     } catch (error) {
         console.error(error);

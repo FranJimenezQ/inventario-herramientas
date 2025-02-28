@@ -72,8 +72,8 @@ export const loginUsuario = async (req, res) => {
         }
     }
 
-    //Actualizar Usuario
-    export const actualizarUsuario = async (req, res) => {
+//Actualizar Usuario
+export const actualizarUsuario = async (req, res) => {
         const { id } = req.params;
         const nuevosDatos = req.body || {};
 
@@ -114,5 +114,22 @@ export const loginUsuario = async (req, res) => {
         } catch (error) {
             console.error("Error al actualizar usuario:", error.message);
             res.status(500).json({ message: "Error al actualizar usuario", error: error });
+        }
+    };
+
+// Eliminar un usuario
+export const eliminarUsuario = async (req, res) => {
+        const { id } = req.params;
+
+        try {
+            const usuarioExistente = await Usuario.findOneAndDelete({ id });
+            if (!usuarioExistente) {
+                return res.status(404).json({ message: "Usuario no encontrado" });
+            }
+
+            res.status(200).json({ message: "Usuario eliminado correctamente" });
+        } catch (error) {
+            console.error("Error al eliminar usuario:", error.message);
+            res.status(500).json({ message: "Error al eliminar usuario", error: error });
         }
     };
