@@ -1,1 +1,14 @@
-<p>register-project works!</p>
+<div class="modal-container">
+    <h2>Registrar una herramienta</h2>
+    <label for="project-name">Nombre del proyecto:</label>
+    <input class="modal-input" type="text">
+    <label for="project-number">Número de proyecto:</label>
+    <input class="modal-input" type="text">
+    <label for="project-address">Dirección del proyecto:</label>
+    <input class="modal-input" type="text"> 
+
+    <div class="modal-buttons-container">
+        <button (click)="closeModal()">Cancelar</button>
+        <button (click)="saveTool()">Crear</button>
+    </div>
+</div>

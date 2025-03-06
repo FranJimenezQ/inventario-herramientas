@@ -1,1 +1,16 @@
-<p>register-tool works!</p>
+<div class="modal-container">
+    <h2>Registrar una herramienta</h2>
+    <label for="tool-name">Nombre de la Herramienta:</label>
+    <input class="modal-input" type="text">
+    <label for="tool-brand">Marca de la Herramienta:</label>
+    <input class="modal-input" type="text">
+    <label for="tool-model">Modelo de la Herramienta:</label>
+    <input class="modal-input" type="text"> 
+    <label for="tool-type">Tipo de la Herramienta:</label>
+    <input class="modal-input" type="text">
+
+    <div class="modal-buttons-container">
+        <button (click)="closeModal()">Cancelar</button>
+        <button (click)="saveTool()">Crear</button>
+    </div>
+</div>
