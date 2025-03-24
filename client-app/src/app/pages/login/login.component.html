@@ -1,16 +1,17 @@
 <div class="login-container">
     <mat-card class="login-card">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>  <!-- Replace with your own icon -->
       <mat-card-title>Iniciar Sesión</mat-card-title>
       <mat-card-content>
         <form>
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Correo</mat-label>
-            <input matInput type="email" required placeholder="Correo" />
+            <input matInput type="userId" [formControl]="userIdControl" required placeholder="Correo" />
           </mat-form-field>
   
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Contraseña</mat-label>
-            <input matInput type="password" required />
+            <input matInput type="password" [formControl]="passwordControl" required />
           </mat-form-field>
   
           <button mat-raised-button color="primary" class="full-width">Ingresar</button>
