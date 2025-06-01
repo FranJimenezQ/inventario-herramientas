@@ -51,11 +51,11 @@ export const registrarUsuario = async (req, res) => {
 
 //Login de usuario
 export const loginUsuario = async (req, res) => {
-    const { id, password } = req.body;
+    const { email, password } = req.body;
      try {
 
         //Verificar si el usuario existe
-        const usuario = await Usuario.findOne({ id });
+        const usuario = await Usuario.findOne({ email });
         if (!usuario) return res.status(400).json({ message: "Usuario no encontrado" });
 
         //Comprobar la contraseña
@@ -63,7 +63,7 @@ export const loginUsuario = async (req, res) => {
         if (!validPassword) return res.status(400).json({ message: "Contraseña incorrecta" });
 
         //Generar el token JWT
-        const token = jwt.sign({ id: usuario.id, rol: usuario.rol }, JWT_SECRET, { expiresIn: '24h' });
+        const token = jwt.sign({ id: usuario.email  , rol: usuario.rol }, JWT_SECRET, { expiresIn: '24h' });
 
         res.status(200).json({ message: 'Inicio de sesión exitoso', token });
         } catch (error) {
