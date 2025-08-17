@@ -1,11 +1,9 @@
 <aside class="sidebar">
-    <div class="logo">Logo</div>
+    <div class="logo">
+      <img src="assets/imagenes/edival-logo.jpg" alt="Logo" srcset="">
+    </div>
     <nav>
-        <button>Dashboard</button>
-        <button (click)="createToolModal()">Registrar Herramienta</button>
-        <button (click)="createProjectModal()">Registrar Proyecto</button>
-        <button>Registrar Empleado</button>
-        <button>Registrar Usuario</button>
-        <button>Asignar Herramienta</button> 
+        <button [routerLink]="['/dashboard', 'proyectos']">Reporte proyectos</button>
+        <button [routerLink]="['/dashboard', 'herramientas']">Reporte herramienta</button>
     </nav>
 </aside>

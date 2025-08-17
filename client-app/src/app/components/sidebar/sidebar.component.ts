@@ -3,11 +3,12 @@ import { RegisterToolComponent } from '../modals/register-tool/register-tool.com
 import { RegisterUserComponent } from '../modals/register-user/register-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterProjectComponent } from '../modals/register-project/register-project.component';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [ RegisterUserComponent, RegisterToolComponent, RegisterProjectComponent],
+  imports: [RegisterUserComponent, RegisterToolComponent, RegisterProjectComponent, RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

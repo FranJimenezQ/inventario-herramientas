@@ -13,13 +13,18 @@ export class AuthEffects {
 
     loginEffect = createEffect(() => this.actions$.pipe(
         ofType(login),
-        mergeMap(({ userId, password }) =>
-            this.authService.login({userId, password}).pipe(
-                map(token => loginSuccess({ token })),
+        mergeMap(({ email, password }) =>
+            this.authService.login({ email, password }).pipe(
+                map(token => {
+                  const tokenExpiration = Date.now() + 60 * 60 * 1000;
+                  sessionStorage.setItem('token', token);
+                  sessionStorage.setItem('tokenExpiration', tokenExpiration.toString());
+                  return loginSuccess({ token });
+                }),
                 catchError(error => of(loginFailure({ error: error.message })))
                 )
             )
         )
     )
 
-}        
+}
