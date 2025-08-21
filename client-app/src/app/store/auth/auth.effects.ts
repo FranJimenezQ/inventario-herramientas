@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from "../../services/auth.service";
-import { login, loginSuccess, loginFailure } from "./auth.actions";
+import { login, loginSuccess, loginFailure, logout, logoutSuccess } from "./auth.actions";
 import { of, map, catchError, mergeMap } from 'rxjs';
 
 @Injectable()
@@ -11,6 +11,8 @@ export class AuthEffects {
         private authService: AuthService
     ) {}
 
+
+    // Login effect for user authentication
     loginEffect = createEffect(() => this.actions$.pipe(
         ofType(login),
         mergeMap(({ email, password }) =>
@@ -26,5 +28,35 @@ export class AuthEffects {
             )
         )
     )
+
+    // Logout effect for user authentication
+    logoutEffect = createEffect(() => this.actions$.pipe(
+        ofType(logout),
+        mergeMap(() => {
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('tokenExpiration');
+            return of(logoutSuccess());
+        })
+    ));
+
+    // Refresh token effect for user authentication
+    refreshTokenEffect = createEffect(() => this.actions$.pipe(
+        ofType('@ngrx/effects/init'),
+        mergeMap(() => {
+            const token = sessionStorage.getItem('token');
+            const tokenExpiration = sessionStorage.getItem('tokenExpiration');
+
+            if (token && tokenExpiration && Date.now() < +tokenExpiration) {
+
+              return of(loginSuccess({token}));
+
+            } else {
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('tokenExpiration');
+              return of(logout());
+            }
+
+        })
+    ));
 
 }

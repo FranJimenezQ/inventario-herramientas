@@ -9,6 +9,7 @@ const herramientasSchema = new mongoose.Schema({
     empleadoAsignado: { type: mongoose.Schema.Types.ObjectId, ref:'EmpleadoProyecto' },
     fechaSalida: { type: Date},
     fechaRegreso: { type: Date},
+    numeroSerie: { type: Number, required: true }
 });
 
 const Herramienta = mongoose.model('Herramienta', herramientasSchema)
