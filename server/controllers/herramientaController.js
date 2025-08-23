@@ -9,9 +9,9 @@ import mongoose from "mongoose";
 export const crearHerramienta = async (req, res) => {
     
     try {
-        const { nombre, marca, modelo, tipo, numeroSerie } = req.body
+        const { nombre, marca, modelo, tipo, numeroSerie, estado } = req.body
 
-        const nuevaHerramienta = new Herramienta({nombre, marca, modelo, tipo, numeroSerie});
+        const nuevaHerramienta = new Herramienta({nombre, marca, modelo, tipo, numeroSerie, estado});
         await nuevaHerramienta.save();
 
         res.status(201).json({message: 'Herramient creada satisfactoriamente', herramienta: nuevaHerramienta});

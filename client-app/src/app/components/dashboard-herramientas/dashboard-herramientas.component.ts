@@ -30,5 +30,5 @@ export class DashboardHerramientasComponent {
     // Agrega más elementos según sea necesario
   ];
 
-  displayedColumns: string[] = ['nombre', 'marca', 'modelo', 'tipo', 'empleadoAsignado', 'fechaSalida', 'fechaRegreso', 'proyectoAsignado', 'numeroSerie'];
+  displayedColumns: string[] = ['nombre', 'marca', 'modelo', 'tipo', 'empleadoAsignado', 'fechaSalida', 'fechaRegreso', 'proyectoAsignado', 'numeroSerie', 'estado'];
 }

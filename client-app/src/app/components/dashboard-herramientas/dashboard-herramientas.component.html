@@ -3,6 +3,7 @@
   <mat-chip color="primary">Agregar</mat-chip>
   <mat-chip color="warn">Eliminar</mat-chip>
   <mat-chip color="accent">Editar</mat-chip>
+  <mat-chip color="accent">Asignar herramienta a un proyecto</mat-chip>
 </mat-chip-set>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
    <ng-container matColumnDef="nombre">
@@ -48,6 +49,11 @@
    <ng-container matColumnDef="numeroSerie">
      <th mat-header-cell *matHeaderCellDef> Número de Serie </th>
      <td mat-cell *matCellDef="let element"> {{element.numeroSerie}} </td>
+   </ng-container>
+
+   <ng-container matColumnDef="estado">
+     <th mat-header-cell *matHeaderCellDef> Estado </th>
+     <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
    </ng-container>
 
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
