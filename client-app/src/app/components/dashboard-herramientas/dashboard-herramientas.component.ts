@@ -1,34 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import {MatChipsModule} from '@angular/material/chips';
+import { selectTodasHerramientas } from '../../store/herramientas/herramientas.selectors';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Herramienta } from '../../store/herramientas/herramientas.state';
+import { AppState } from '../../store/appState';
+import { MatDialog } from '@angular/material/dialog';
+import { RegistrarHerramientaComponent } from '../modals/herramienta-modals/registrar-herramienta/registrar-herramienta.component';
+import { DatePipe, CommonModule, NgFor } from '@angular/common';
+import { AccionesHerramientaComponent } from '../modals/herramienta-modals/acciones-herramienta/acciones-herramienta.component';
+import { MatIcon } from "@angular/material/icon";
 
 
 
 @Component({
   selector: 'app-dashboard-herramientas',
   standalone: true,
-  imports: [MatTableModule, MatChipsModule],
+  imports: [MatTableModule, MatChipsModule, DatePipe, CommonModule, NgFor, MatIcon],
   templateUrl: './dashboard-herramientas.component.html',
   styleUrl: './dashboard-herramientas.component.scss'
 })
-export class DashboardHerramientasComponent {
-  constructor() { }
+export class DashboardHerramientasComponent implements OnInit, OnDestroy {
+  constructor(private store: Store<AppState>, private dialog: MatDialog) { }
 
-  // Aquí puedes agregar la lógica específica para el componente de herramientas del dashboard
-  dataSource = [
-    {
-      nombre: 'Martillo',
-      marca: 'Bosch',
-      modelo: 'XYZ123',
-      tipo: 'Herramienta de mano',
-      empleadoAsignado: 'Juan Pérez',
-      fechaSalida: '2023-01-15',
-      fechaRegreso: '2023-01-20',
-      proyectoAsignado: 'Construcción',
-      numeroSerie: '123456789'
-    },
-    // Agrega más elementos según sea necesario
-  ];
+  public selectHerramientasSubscriber! : Subscription;
+  public listaHerramientas: Herramienta[] = [];
 
-  displayedColumns: string[] = ['nombre', 'marca', 'modelo', 'tipo', 'empleadoAsignado', 'fechaSalida', 'fechaRegreso', 'proyectoAsignado', 'numeroSerie', 'estado'];
+
+  displayedColumns: string[] = ['nombre', 'marca', 'modelo', 'tipo', 'empleadoAsignado', 'fechaSalida', 'fechaRegreso', 'proyectoAsignado', 'numeroSerie', 'estado', 'acciones'];
+
+
+  ngOnInit() {
+    this.selectHerramientasSubscriber = this.store.select(selectTodasHerramientas).subscribe(herramientas => {
+      this.listaHerramientas = [...herramientas];
+      console.log(this.listaHerramientas);
+    });
+  }
+
+  public abrirRegistrarHerramientasModal() {
+    const dialogRef = this.dialog.open(RegistrarHerramientaComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Handle the result from the modal
+      }
+    });
+  }
+
+  public abrirAccionesHerramientaModal(herramienta: Herramienta) {
+    const dialogRef = this.dialog.open(AccionesHerramientaComponent, {
+      data: {herramienta}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Handle the result from the modal
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.selectHerramientasSubscriber?.unsubscribe();
+  }
+
 }

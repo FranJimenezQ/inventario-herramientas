@@ -31,7 +31,7 @@ export class HerramientasEffects {
       ofType(herramientasActions.crearHerramienta),
       mergeMap(action => this.herramientasService.crearHerramienta(action.herramienta)
         .pipe(
-          map((herramienta: Herramienta) => herramientasActions.crearHerramientaSuccess({ herramienta })),
+          map((response: any) => herramientasActions.crearHerramientaSuccess({ herramienta: response.herramienta })),
           catchError(error => of(herramientasActions.crearHerramientaFailure({ error })))
         )
       )
@@ -42,7 +42,7 @@ export class HerramientasEffects {
   eliminarHerramienta$ = createEffect(() =>
     this.actions$.pipe(
       ofType(herramientasActions.eliminarHerramienta),
-      mergeMap(action => this.herramientasService.eliminarHerramienta(action.herramienta.id)
+      mergeMap(action => this.herramientasService.eliminarHerramienta(action.herramienta.numeroSerie)
         .pipe(
           map(() => herramientasActions.eliminarHerramientaSuccess({ herramienta: action.herramienta })),
           catchError(error => of(herramientasActions.eliminarHerramientaFailure({ error })))

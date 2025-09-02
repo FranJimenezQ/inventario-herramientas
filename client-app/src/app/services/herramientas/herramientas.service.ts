@@ -24,8 +24,8 @@ export class HerramientasService {
     return this.http.put<Herramienta>(`${this.baseUrl}/actualizarHerramienta/${id}`, herramienta);
   }
 
-  eliminarHerramienta(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/eliminarHerramienta/${id}`);
+  eliminarHerramienta(numeroSerie: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/eliminarHerramienta/${numeroSerie}`);
   }
 
   asignarHerramienta(id: string, proyectoId: string): Observable<void> {

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignToolComponent } from './assign-tool.component';
+import { RegisterToolComponent } from './registrar-herramienta.component';
 
-describe('AssignToolComponent', () => {
-  let component: AssignToolComponent;
-  let fixture: ComponentFixture<AssignToolComponent>;
+describe('RegisterToolComponent', () => {
+  let component: RegisterToolComponent;
+  let fixture: ComponentFixture<RegisterToolComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AssignToolComponent]
+      imports: [RegisterToolComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(AssignToolComponent);
+
+    fixture = TestBed.createComponent(RegisterToolComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

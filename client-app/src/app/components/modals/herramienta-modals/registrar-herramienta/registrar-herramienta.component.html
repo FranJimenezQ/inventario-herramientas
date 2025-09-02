@@ -1,0 +1,41 @@
+<div class="modal-herramienta-container">
+  <div class="title">
+    <h2>Registrar una herramienta</h2>
+  </div>
+  <!-- Esto tiene que estar dentro de un form -->
+  <form class="modal-form" [formGroup]="herramientaForm" (ngSubmit)="guardarHerramienta()">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre:</mat-label>
+      <input matInput type="text" formControlName="nombre"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Marca:</mat-label>
+      <input matInput type="text" formControlName="marca"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Modelo:</mat-label>
+      <input matInput type="text" formControlName="modelo"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo:</mat-label>
+      <input matInput type="text" formControlName="tipo"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Número de Serie:</mat-label>
+      <input matInput type="number" formControlName="numeroSerie"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Estado:</mat-label>
+      <input matInput type="text" formControlName="estado"  />
+    </mat-form-field>
+      <span>(*) Campos obligatorios</span>
+    <div class="modal-buttons-container">
+      <button mat-button (click)="cerrarModal()">Cancelar</button>
+      <button mat-raised-button type="submit" [disabled]="herramientaForm.invalid">Crear</button>
+    </div>
+    <div class="spinner-container">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+  </form>
+
+</div>

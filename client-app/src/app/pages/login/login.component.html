@@ -6,18 +6,31 @@
         <form [formGroup]="loginForm" (ngSubmit)="login()">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Correo</mat-label>
-            <input matInput type="email" [formControl]="emailControl" required placeholder="Correo" />
+            <input matInput type="email" [formControl]="emailControl" required placeholder="Correo"  />
+            <mat-error *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
+              <span *ngIf="emailControl.errors?.['required']">El correo es requerido.</span>
+              <span *ngIf="emailControl.errors?.['invalidEmail']">El correo no es válido.</span>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Contraseña</mat-label>
-            <input matInput type="password" [formControl]="passwordControl" required />
+            <input matInput type="password" [formControl]="passwordControl" required minlength="4" />
+            <mat-error *ngIf="passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)">
+              <span *ngIf="passwordControl.errors?.['required']">La contraseña es requerida.</span>
+              <span *ngIf="passwordControl.errors?.['minlength']">Debe tener al menos {{ passwordControl.errors?.['minlength'].requiredLength }} caracteres.</span>
+              <span *ngIf="passwordControl.errors?.['invalidToken']">La contraseña es inválida.</span>
+            </mat-error>
           </mat-form-field>
 
           <button mat-raised-button color="primary" class="full-width"
           type="submit"
           (click)="login()">Ingresar</button>
         </form>
+        <div *ngIf="mensageExitoLogin" class="loginMessage">
+          {{ mensageExitoLogin }}
+          <mat-icon>check_circle</mat-icon>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

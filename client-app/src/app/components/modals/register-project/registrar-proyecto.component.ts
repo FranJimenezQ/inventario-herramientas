@@ -5,10 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'app-register-project',
   standalone: true,
   imports: [],
-  templateUrl: './register-project.component.html',
-  styleUrl: './register-project.component.scss'
+  templateUrl: './registrar-proyecto.component.html',
+  styleUrl: './registrar-proyecto.component.scss'
 })
-export class RegisterProjectComponent {
+export class RegistrarProyectoComponent {
     constructor(private dialog: MatDialog){}
     public closeModal(){
       this.dialog.closeAll();
