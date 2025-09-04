@@ -1,4 +1,5 @@
 export interface Herramienta {
+  _id?: string;
   nombre: string;
   marca: string;
   modelo: string;

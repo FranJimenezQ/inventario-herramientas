@@ -51,12 +51,12 @@ export const actualizarHerramientaFailure = createAction(
 //Acciones para eliminar una herramienta
 export const eliminarHerramienta = createAction(
   '[Herramientas] Eliminar Herramienta',
-  props<{ herramienta: Herramienta }>()
+  props<{ _id: string }>()
 );
 
 export const eliminarHerramientaSuccess = createAction(
   '[Herramientas] Eliminar Herramienta Success',
-  props<{ herramienta: Herramienta }>()
+  props<{ _id: string }>()
 );
 
 export const eliminarHerramientaFailure = createAction(

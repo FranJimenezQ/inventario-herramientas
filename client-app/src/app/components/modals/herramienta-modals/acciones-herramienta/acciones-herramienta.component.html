@@ -3,9 +3,9 @@
     <h1>Acciones para la herramienta</h1>
   </div>
   <div class="herramienta-info">
-    <p>Nombre: {{data.herramienta.nombre}}</p>
-    <p>Marca: {{data.herramienta.marca}}</p>
-    <p>Modelo: {{data.herramienta.modelo}}</p>
+    <p>Nombre: {{ data.herramienta.nombre }}</p>
+    <p>Marca: {{ data.herramienta.marca }}</p>
+    <p>Modelo: {{ data.herramienta.modelo }}</p>
   </div>
   <div class="modal-acciones">
     <button mat-button (click)="editarHerramienta()">Editar</button>
@@ -15,46 +15,69 @@
     <button mat-button (click)="cerrarModal()">Cancelar</button>
   </div>
 
-<form [formGroup]="accionFormGroup" (ngSubmit)="onSubmit()">
-  <ng-container [ngSwitch]="accionSeleccionada">
-    <!-- Eliminar -->
-    <div *ngSwitchCase="'eliminar'">
-      <p>¿Seguro que deseas eliminar la herramienta <b>{{ data.herramienta.nombre }}</b>?</p>
-      <button mat-raised-button color="warn" type="submit">Confirmar eliminación</button>
-    </div>
+  <form [formGroup]="accionFormGroup" (ngSubmit)="onSubmit()">
+    <ng-container [ngSwitch]="accionSeleccionada">
+      <div class="acciones-container">
+        <!-- Eliminar -->
+        <div *ngSwitchCase="'eliminar'">
+          <p>
+            ¿Seguro que deseas eliminar la herramienta
+            <b>{{ data.herramienta.nombre }}</b
+            >?
+          </p>
+          <button mat-button class="btn-accion" type="submit">
+            Confirmar eliminación
+          </button>
+          <div class="herramienta-eliminada-success-mensaje">
+            <mat-icon>
+              <span class="material-symbols-rounded"> check_circle </span>
+            </mat-icon>
+            <p>Herramienta eliminada con éxito</p>
+          </div>
+        </div>
 
-    <!-- Actualizar -->
-    <div *ngSwitchCase="'actualizar'">
-      <mat-form-field>
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre">
-      </mat-form-field>
-      <!-- Agrega más campos según tu modelo -->
-      <button mat-raised-button color="primary" type="submit">Actualizar</button>
-    </div>
+        <!-- Actualizar -->
+        <div *ngSwitchCase="'actualizar'">
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+          </mat-form-field>
+          <!-- Agrega más campos según tu modelo -->
+          <button mat-raised-button color="primary" type="submit">
+            Actualizar
+          </button>
+        </div>
 
-    <!-- Asignar -->
-    <div *ngSwitchCase="'asignar'">
-      <mat-form-field>
-        <mat-label>Empleado</mat-label>
-        <input matInput formControlName="empleadoAsignado">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Proyecto</mat-label>
-        <input matInput formControlName="proyectoAsignado">
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Asignar</button>
-    </div>
+        <!-- Asignar -->
+        <div *ngSwitchCase="'asignar'">
+          <mat-form-field>
+            <mat-label>Empleado</mat-label>
+            <input matInput formControlName="empleadoAsignado" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Proyecto</mat-label>
+            <input matInput formControlName="proyectoAsignado" />
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">
+            Asignar
+          </button>
+        </div>
 
-    <!-- Devolver -->
-    <div *ngSwitchCase="'devolver'">
-      <mat-form-field>
-        <mat-label>Fecha de regreso</mat-label>
-        <input matInput type="date" formControlName="fechaRegreso">
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Devolver</button>
-    </div>
-  </ng-container>
-</form>
+        <!-- Devolver -->
+        <div *ngSwitchCase="'devolver'">
+          <mat-form-field>
+            <mat-label>Fecha de regreso</mat-label>
+            <input matInput type="date" formControlName="fechaRegreso" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Estado</mat-label>
+            <textarea matInput formControlName="estado"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">
+            Devolver
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </form>
 </div>
-

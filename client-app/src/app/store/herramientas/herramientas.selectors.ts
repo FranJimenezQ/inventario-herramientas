@@ -34,3 +34,10 @@ export const selectCrearHerramientaError = createSelector(
   selectHerramientasState,
   (state: HerramientasState) => state.crear.error
 );
+
+
+//Selector para saber si se eliminó una herramienta
+export const selectHerramientaEliminada = createSelector(
+  selectHerramientasState,
+  (state: HerramientasState) => state.eliminar.success
+);

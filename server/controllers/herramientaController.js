@@ -108,8 +108,8 @@ export const actualizarHerramienta = async (req, res) => {
 
 export const eliminarHerramienta = async (req, res) => {
     try {
-        const {id} = req.params;
-        const herramientaEliminada = await Herramienta.findByIdAndDelete(id);
+        const {_id} = req.params;
+        const herramientaEliminada = await Herramienta.findByIdAndDelete(_id);
 
         if (!herramientaEliminada) {
             return res.status(404).json({message: 'Herramienta no encontrada'});

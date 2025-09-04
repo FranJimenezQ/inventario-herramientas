@@ -48,28 +48,17 @@ export const herramientasReducer = createReducer(
     }
   })),
   //Eliminar herramienta
-  // on(herramientasActions.eliminarHerramienta, (state, { numeroSerie }) => ({
-  //   ...state,
-  //   eliminar: {
-  //     ...state.eliminar,
-  //     loading: true
-  //   },
-  //   herramientas: state.herramientas.filter(herramienta => herramienta.id !== id)
-  // })),
-  // on(herramientasActions.eliminarHerramientaSuccess, (state) => ({
-  //   ...state,
-  //   eliminar: {
-  //     ...state.eliminar,
-  //     loading: false,
-  //     success: true
-  //   }
-  // })),
-  // on(herramientasActions.eliminarHerramientaFailure, (state, { error }) => ({
-  //   ...state,
-  //   eliminar: {
-  //     ...state.eliminar,
-  //     loading: false,
-  //     error
-  //   }
-  // }))
+  on(herramientasActions.eliminarHerramienta, (state) => ({
+    ...state,
+    eliminar: { ...state.eliminar,  loading: true, success: false, error: null }
+  })),
+  on(herramientasActions.eliminarHerramientaSuccess, (state, { _id }) => ({
+    ...state,
+    herramientas: state.herramientas.filter(herramienta => herramienta._id !== _id),
+    eliminar: { ...state.eliminar, loading: false, success: true }
+  })),
+  on(herramientasActions.eliminarHerramientaFailure, (state, { error }) => ({
+    ...state,
+    eliminar: { ...state.eliminar, loading: false, error}
+  }))
 );
