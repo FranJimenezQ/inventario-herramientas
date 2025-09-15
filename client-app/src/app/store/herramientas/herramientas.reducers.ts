@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialHerramientasState, HerramientasState } from "./herramientas.state";
 import * as herramientasActions from './herramientas.actions';
+import * as movimientoActions from '../movimientos/movimiento.actions';
 import { Herramienta } from './herramientas.state';
 
 
@@ -60,5 +61,48 @@ export const herramientasReducer = createReducer(
   on(herramientasActions.eliminarHerramientaFailure, (state, { error }) => ({
     ...state,
     eliminar: { ...state.eliminar, loading: false, error}
-  }))
+  })),
+
+  //Actualizar herramienta
+  on(herramientasActions.actualizarHerramienta, (state) => ({
+    ...state,
+    actualizar: { ...state.actualizar, loading: true, success: false, error: null }
+  })),
+  on(herramientasActions.actualizarHerramientaSuccess, (state, { herramienta }) => ({
+    ...state,
+    herramientas: state.herramientas.map(h => h._id === herramienta._id ? herramienta : h),
+    actualizar: { ...state.actualizar, loading: false, success: true }
+  })),
+  on(herramientasActions.actualizarHerramientaFailure, (state, { error }) => ({
+    ...state,
+    actualizar: { ...state.actualizar, loading: false, error }
+  })),
+
+//Asignar un proyecto y empleado a una herramienta
+  on(herramientasActions.asignarHerramienta, (state) => ({
+    ...state,
+    asignarProyecto: { ...state.asignarProyecto, loading: true, success: false, error: null }
+  })),
+  on(herramientasActions.asignarHerramientaSuccess, (state, { herramienta }) => ({
+    ...state,
+    herramientas: state.herramientas.map(h => h._id === herramienta._id ? herramienta : h),
+    asignarProyecto: { ...state.asignarProyecto, loading: false, success: true }
+  })),
+  on(herramientasActions.asignarHerramientaFailure, (state, { error }) => ({
+    ...state,
+    asignarProyecto: { ...state.asignarProyecto, loading: false, error }
+  })),
+
+  //Devolver herramienta
+on(movimientoActions.devolverHerramientaSuccess, (state, { herramienta }) => ({
+    ...state,
+    herramientas: state.herramientas.map(h =>
+      h._id === herramienta._id ? herramienta : h
+    )
+  })),
+  on(movimientoActions.devolverHerramientaFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
 );

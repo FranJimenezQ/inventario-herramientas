@@ -41,3 +41,15 @@ export const selectHerramientaEliminada = createSelector(
   selectHerramientasState,
   (state: HerramientasState) => state.eliminar.success
 );
+
+//Selector para saber si se actualizó una herramienta
+export const selectHerramientaActualizada = createSelector(
+  selectHerramientasState,
+  (state: HerramientasState) => state.actualizar.success
+);
+
+//Selector para saber si se asigno correctamente una herramienta
+export const selectHerramientaAsignada = createSelector(
+  selectHerramientasState,
+  (state: HerramientasState) => state.asignarProyecto.success
+);

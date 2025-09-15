@@ -68,7 +68,7 @@ export const eliminarHerramientaFailure = createAction(
 //Acciones para asignarHerramienta a un proyecto
 export const asignarHerramienta = createAction(
   '[Herramientas] Asignar Herramienta',
-  props<{ herramienta: Herramienta }>()
+  props<{ id: string; proyectoId: string, empleadoId: string, fechaSalida?: string }>()
 );
 
 export const asignarHerramientaSuccess = createAction(
@@ -133,7 +133,12 @@ export const obtenerHistorialPorHerramientaFailure = createAction(
 //Acciones para devolverHerramienta
 export const devolverHerramienta = createAction(
   '[Herramientas] Devolver Herramienta',
-  props<{ herramientaId: string }>()
+  props<{ herramientaId: string,
+    fechaDevolucion: string,
+    estado: string,
+    empleadoAsignado?: null,
+    proyectoAsignado?: null
+   }>()
 );
 
 export const devolverHerramientaSuccess = createAction(

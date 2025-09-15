@@ -57,7 +57,7 @@ export class HerramientasEffects {
         ofType(herramientasActions.actualizarHerramienta),
         mergeMap(action => this.herramientasService.actualizarHerramienta(action.id, action.herramienta)
           .pipe(
-            map((herramienta: Herramienta) => herramientasActions.actualizarHerramientaSuccess({ herramienta })),
+            map((response: any) => herramientasActions.actualizarHerramientaSuccess({ herramienta: response.herramienta })),
             catchError(error => of(herramientasActions.actualizarHerramientaFailure({ error })))
           )
         )
@@ -72,6 +72,24 @@ export class HerramientasEffects {
           .pipe(
             map((herramienta: Herramienta) => herramientasActions.devolverHerramientaSuccess({ herramienta })),
             catchError(error => of(herramientasActions.devolverHerramientaFailure({ error })))
+          )
+        )
+      )
+    );
+
+  //Efecto para asignar una herramienta
+    asignarHerramienta$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(herramientasActions.asignarHerramienta),
+        mergeMap(action => this.herramientasService.asignarHerramienta(
+          action.id,
+          { proyectoAsignado: action.proyectoId,
+            empleadoAsignado: action.empleadoId,
+            fechaSalida: action.fechaSalida
+          })
+          .pipe(
+            map((response: any) => herramientasActions.asignarHerramientaSuccess({ herramienta: response.herramienta })),
+            catchError(error => of(herramientasActions.asignarHerramientaFailure({ error })))
           )
         )
       )

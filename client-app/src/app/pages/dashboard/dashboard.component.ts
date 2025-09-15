@@ -5,6 +5,8 @@ import { NgIf } from '@angular/common';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { cargarHerramientas } from '../../store/herramientas/herramientas.actions';
 import { Store } from '@ngrx/store';
+import { cargarProyectos } from '../../store/proyectos/proyectos.actions';
+import { cargarEmpleados } from '../../store/empleados/empleados.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,12 +25,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mostrarTituloSubscriber = this.router.events.subscribe(() => {
       this.mostrarTitulo = this.router.url === '/dashboard';
-      console.log(this.mostrarTitulo);
     });
     this.mostrarTitulo = this.router.url === '/dashboard';
 
         this.store.dispatch(cargarHerramientas());
-        //this.store.dispatch(cargarUsuarios());
+        this.store.dispatch(cargarEmpleados());
+        this.store.dispatch(cargarProyectos());
     }
 
 

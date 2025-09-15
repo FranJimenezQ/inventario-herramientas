@@ -13,6 +13,7 @@ export const routes: Routes = [
         //{ path: '', redirectTo: 'herramientas', pathMatch: 'full' },
         { path: 'herramientas', component: DashboardHerramientasComponent },
         { path: 'proyectos', component: DashboardProyectosComponent },
+        //{ path: 'movimientos', component: DashboardMovimientosComponent },
       ]
      },
 ];

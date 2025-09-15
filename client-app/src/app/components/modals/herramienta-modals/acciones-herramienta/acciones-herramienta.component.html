@@ -12,7 +12,7 @@
     <button mat-button (click)="eliminarHerramienta()">Eliminar</button>
     <button mat-button (click)="asignarHerramienta()">Asignar</button>
     <button mat-button (click)="devolverHerramienta()">Devolver</button>
-    <button mat-button (click)="cerrarModal()">Cancelar</button>
+    <button mat-button (click)="cerrarModal()">Cerrar</button>
   </div>
 
   <form [formGroup]="accionFormGroup" (ngSubmit)="onSubmit()">
@@ -20,62 +20,173 @@
       <div class="acciones-container">
         <!-- Eliminar -->
         <div *ngSwitchCase="'eliminar'">
-          <p>
-            ¿Seguro que deseas eliminar la herramienta
-            <b>{{ data.herramienta.nombre }}</b
-            >?
-          </p>
-          <button mat-button class="btn-accion" type="submit">
-            Confirmar eliminación
-          </button>
-          <div class="herramienta-eliminada-success-mensaje">
-            <mat-icon>
-              <span class="material-symbols-rounded"> check_circle </span>
-            </mat-icon>
-            <p>Herramienta eliminada con éxito</p>
+          <div class="eliminar-form-container">
+            <p>
+              ¿Seguro que deseas eliminar la herramienta
+              <b>{{ data.herramienta.nombre }}</b
+              >?
+            </p>
+            <button mat-button class="btn-accion" type="submit">
+              Confirmar eliminación
+            </button>
+            <div *ngIf="isLoading" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle</span>
+              </mat-icon>
+              <p>Herramienta eliminada con éxito</p>
+            </div>
           </div>
         </div>
 
         <!-- Actualizar -->
         <div *ngSwitchCase="'actualizar'">
-          <mat-form-field>
-            <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombre" />
-          </mat-form-field>
-          <!-- Agrega más campos según tu modelo -->
-          <button mat-raised-button color="primary" type="submit">
-            Actualizar
-          </button>
+          <div class="actualizar-form-container">
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Marca</mat-label>
+                <input matInput formControlName="marca" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Modelo</mat-label>
+                <input matInput formControlName="modelo" />
+              </mat-form-field>
+            </div>
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Tipo</mat-label>
+                <input matInput formControlName="tipo" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Número de Serie</mat-label>
+                <input matInput formControlName="numeroSerie" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Estado</mat-label>
+                <input matInput formControlName="estado" />
+              </mat-form-field>
+            </div>
+            <button
+              mat-raised-button
+              [disabled]="accionFormGroup.invalid"
+              class="btn-accion"
+              color="primary"
+              type="submit"
+            >
+              Actualizar
+            </button>
+            <div *ngIf="isLoading" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle</span>
+              </mat-icon>
+              <p>Herramienta Actualizada con éxito</p>
+            </div>
+          </div>
         </div>
 
         <!-- Asignar -->
         <div *ngSwitchCase="'asignar'">
-          <mat-form-field>
-            <mat-label>Empleado</mat-label>
-            <input matInput formControlName="empleadoAsignado" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Proyecto</mat-label>
-            <input matInput formControlName="proyectoAsignado" />
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit">
-            Asignar
-          </button>
+          <div class="actualizar-form-container">
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Empleado</mat-label>
+                <mat-select formControlName="empleadoAsignado">
+                  <mat-option
+                    *ngFor="let empleado of empleados"
+                    [value]="empleado._id"
+                  >
+                    {{ empleado.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Proyecto</mat-label>
+                <mat-select formControlName="proyectoAsignado">
+                  <mat-option
+                    *ngFor="let proyecto of proyectos"
+                    [value]="proyecto._id"
+                  >
+                    {{ proyecto.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Fecha de asignación</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="fechaAsignacion"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <button
+              mat-raised-button
+              [disabled]="accionFormGroup.invalid"
+              class="btn-accion"
+              color="primary"
+              type="submit"
+            >
+              Asignar herramienta
+            </button>
+            <div *ngIf="isLoading" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle </span>
+              </mat-icon>
+              <p>Herramienta Asignada con éxito</p>
+            </div>
+          </div>
         </div>
 
         <!-- Devolver -->
         <div *ngSwitchCase="'devolver'">
-          <mat-form-field>
-            <mat-label>Fecha de regreso</mat-label>
-            <input matInput type="date" formControlName="fechaRegreso" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Estado</mat-label>
-            <textarea matInput formControlName="estado"></textarea>
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit">
-            Devolver
-          </button>
+          <div class="actualizar-form-container">
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Fecha de Devolución</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="fechaDevolucion"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Estado</mat-label>
+                <textarea matInput formControlName="estado"></textarea>
+              </mat-form-field>
+            </div>
+            <button
+              mat-raised-button
+              [disabled]="accionFormGroup.invalid"
+              class="btn-accion"
+              color="primary"
+              type="submit"
+            >
+              Devolver
+            </button>
+            <div *ngIf="isLoading" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle </span>
+              </mat-icon>
+              <p>Herramienta devuelta con éxito</p>
+            </div>
+          </div>
         </div>
       </div>
     </ng-container>

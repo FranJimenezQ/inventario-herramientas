@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import {MatChipsModule} from '@angular/material/chips';
 import { selectTodasHerramientas } from '../../store/herramientas/herramientas.selectors';
@@ -8,7 +8,7 @@ import { Herramienta } from '../../store/herramientas/herramientas.state';
 import { AppState } from '../../store/appState';
 import { MatDialog } from '@angular/material/dialog';
 import { RegistrarHerramientaComponent } from '../modals/herramienta-modals/registrar-herramienta/registrar-herramienta.component';
-import { DatePipe, CommonModule, NgFor } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { AccionesHerramientaComponent } from '../modals/herramienta-modals/acciones-herramienta/acciones-herramienta.component';
 import { MatIcon } from "@angular/material/icon";
 
@@ -17,12 +17,12 @@ import { MatIcon } from "@angular/material/icon";
 @Component({
   selector: 'app-dashboard-herramientas',
   standalone: true,
-  imports: [MatTableModule, MatChipsModule, DatePipe, CommonModule, NgFor, MatIcon],
+  imports: [MatTableModule, MatChipsModule, DatePipe, CommonModule, MatIcon],
   templateUrl: './dashboard-herramientas.component.html',
   styleUrl: './dashboard-herramientas.component.scss'
 })
 export class DashboardHerramientasComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<AppState>, private dialog: MatDialog) { }
+  constructor(private store: Store<AppState>, private dialog: MatDialog, private cdr: ChangeDetectorRef) { }
 
   public selectHerramientasSubscriber! : Subscription;
   public listaHerramientas: Herramienta[] = [];
@@ -34,6 +34,7 @@ export class DashboardHerramientasComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.selectHerramientasSubscriber = this.store.select(selectTodasHerramientas).subscribe(herramientas => {
       this.listaHerramientas = [...herramientas];
+      this.cdr.detectChanges();
       console.log(this.listaHerramientas);
     });
   }

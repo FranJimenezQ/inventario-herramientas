@@ -1,13 +1,27 @@
+export interface ProyectoAsignado {
+  _id: string;
+  nombre: string;
+  numeroProyecto?: string;
+  direccion?: string;
+}
+
+export interface EmpleadoAsignado {
+  _id: string;
+  nombre: string;
+  apellido?: string;
+  cargo?: string;
+  idPersonal?: string;
+}
 export interface Herramienta {
   _id?: string;
   nombre: string;
   marca: string;
   modelo: string;
   tipo: string;
-  empleadoAsignado?: string;
+  empleadoAsignado?: string | EmpleadoAsignado | null;
   fechaSalida?: Date | null;
   fechaRegreso?: Date | null;
-  proyectoAsignado?: string | null;
+  proyectoAsignado?: string | ProyectoAsignado | null;
   numeroSerie: number;
   estado: string;
 }

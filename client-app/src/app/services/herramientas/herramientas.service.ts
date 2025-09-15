@@ -12,35 +12,40 @@ export class HerramientasService {
 
   constructor( private http: HttpClient) { }
 
+  protected getAuthHeaders() {
+    const token = sessionStorage.getItem('token');
+    return { Authorization: `Bearer ${token}` };
+  }
+
   getHerramientas(): Observable<Herramienta[]> {
-    return this.http.get<Herramienta[]>(`${this.baseUrl}`);
+    return this.http.get<Herramienta[]>(`${this.baseUrl}`, { headers: this.getAuthHeaders() });
   }
 
   crearHerramienta(herramienta: Herramienta): Observable<Herramienta> {
-    return this.http.post<Herramienta>(`${this.baseUrl}/registrarHerramienta`, herramienta);
+    return this.http.post<Herramienta>(`${this.baseUrl}/registrarHerramienta`, herramienta, { headers: this.getAuthHeaders() });
   }
 
   actualizarHerramienta(id: string, herramienta: Herramienta): Observable<Herramienta> {
-    return this.http.put<Herramienta>(`${this.baseUrl}/actualizarHerramienta/${id}`, herramienta);
+    return this.http.put<Herramienta>(`${this.baseUrl}/actualizarHerramienta/${id}`, herramienta, { headers: this.getAuthHeaders() });
   }
 
   eliminarHerramienta(_id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/eliminarHerramienta/${_id}`);
+    return this.http.delete<void>(`${this.baseUrl}/eliminarHerramienta/${_id}`, { headers: this.getAuthHeaders() });
   }
 
-  asignarHerramienta(id: string, proyectoId: string): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/asignarHerramienta/${id}`, { proyectoId });
+  asignarHerramienta(id: string, data: { proyectoAsignado: string; empleadoAsignado: string; fechaSalida?: string }): Observable<Herramienta> {
+    return this.http.put<Herramienta>(`${this.baseUrl}/asignarHerramienta/${id}`, data, { headers: this.getAuthHeaders() });
   }
 
   obtenerHerramientasPorProyecto(proyectoId: string): Observable<Herramienta[]> {
-    return this.http.get<Herramienta[]>(`${this.baseUrl}/proyecto/${proyectoId}`);
+    return this.http.get<Herramienta[]>(`${this.baseUrl}/proyecto/${proyectoId}`, { headers: this.getAuthHeaders() });
   }
 
   obtenerHistorialPorHerramienta(herramientaId: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/historial/${herramientaId}`);
+    return this.http.get<any>(`${this.baseUrl}/historial/${herramientaId}`, { headers: this.getAuthHeaders() });
   }
 
   devolverHerramienta(herramientaId: string): Observable<Herramienta> {
-    return this.http.put<Herramienta>(`${this.baseUrl}/devolverHerramienta/${herramientaId}`, {});
+    return this.http.put<Herramienta>(`${this.baseUrl}/devolverHerramienta/${herramientaId}`, {}, { headers: this.getAuthHeaders() });
   }
 }

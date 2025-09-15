@@ -57,3 +57,14 @@ export const eliminarProyecto = async (req, res) => {
         res.status(500).json({ message: "Error al eliminar proyecto", error: error });
     }
 };
+
+//Obterner todos los proyectos
+export const obtenerProyectos = async (req, res) => {
+    try {
+        const proyectos = await Proyecto.find();
+        res.status(200).json(proyectos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al obtener proyectos", error: error });
+    }
+};

@@ -11,18 +11,30 @@ import { herramientasReducer } from './store/herramientas/herramientas.reducers'
 import { HerramientasEffects } from './store/herramientas/herramientas.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { isDevMode } from '@angular/core';
+import { empleadosReducer } from './store/empleados/empleados.reducers';
+import { EmpleadosEffects } from './store/empleados/empleados.effects';
+import { proyectosReducer } from './store/proyectos/proyectos.reducers';
+import { ProyectosEffects } from './store/proyectos/proyectos.effects';
+import { movimientoReducer } from './store/movimientos/movimiento.reducers';
+import { MovimientoEffects } from './store/movimientos/movimiento.effects';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideAnimationsAsync(), provideHttpClient(),
     provideStore({
       auth: authReducer,
-      herramientas: herramientasReducer
+      herramientas: herramientasReducer,
+      empleados: empleadosReducer,
+      proyectos: proyectosReducer,
+      movimientos: movimientoReducer
     }),
     provideEffects(
       [
         AuthEffects,
-        HerramientasEffects
+        HerramientasEffects,
+        EmpleadosEffects,
+        ProyectosEffects,
+        MovimientoEffects
       ]
     ),
     ...(isDevMode() ? [provideStoreDevtools()] : [])

@@ -25,7 +25,9 @@
 
    <ng-container matColumnDef="empleadoAsignado">
      <th mat-header-cell *matHeaderCellDef> Empleado Asignado </th>
-     <td mat-cell *matCellDef="let element"> {{element.empleadoAsignado}} </td>
+     <td mat-cell *matCellDef="let element">
+      {{element.empleadoAsignado ? element.empleadoAsignado.nombre : 'Disponible'}}
+    </td>
    </ng-container>
 
    <ng-container matColumnDef="fechaSalida">
@@ -40,7 +42,9 @@
 
    <ng-container matColumnDef="proyectoAsignado">
      <th mat-header-cell *matHeaderCellDef> Proyecto Asignado </th>
-     <td mat-cell *matCellDef="let element"> {{element.proyectoAsignado}} </td>
+     <td mat-cell *matCellDef="let element">
+      {{element.proyectoAsignado ? element.proyectoAsignado.nombre : 'Disponible'}}
+    </td>
    </ng-container>
 
    <ng-container matColumnDef="numeroSerie">
