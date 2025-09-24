@@ -33,7 +33,7 @@ export const actualizarProyecto = createAction(
 );
 export const actualizarProyectoSuccess = createAction(
   '[Proyectos] Actualizar Proyecto Success',
-  props<{ proyecto: Proyecto }>()
+  props<{ proyecto: Proyecto, message: string }>()
 );
 export const actualizarProyectoFailure = createAction(
   '[Proyectos] Actualizar Proyecto Failure',
@@ -43,11 +43,11 @@ export const actualizarProyectoFailure = createAction(
 //Acciones para eliminar un proyecto
 export const eliminarProyecto = createAction(
   '[Proyectos] Eliminar Proyecto',
-  props<{ numeroProyecto: string }>()
+  props<{ proyectoId: string }>()
 );
 export const eliminarProyectoSuccess = createAction(
   '[Proyectos] Eliminar Proyecto Success',
-  props<{ numeroProyecto: string }>()
+  props<{ message: string; proyecto: Proyecto }>()
 );
 export const eliminarProyectoFailure = createAction(
   '[Proyectos] Eliminar Proyecto Failure',

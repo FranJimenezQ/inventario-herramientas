@@ -25,4 +25,14 @@ export class ProyectosService {
   crearProyecto(proyecto: Proyecto): Observable<Proyecto> {
     return this.http.post<Proyecto>(`${this.baseUrl}/registrarProyecto`, proyecto, { headers: this.getAuthHeaders() });
   }
+
+  // Actualizar un proyecto existente
+  actualizarProyecto(id: string, proyecto: Proyecto): Observable<Proyecto> {
+    return this.http.put<Proyecto>(`${this.baseUrl}/actualizarProyecto/${id}`, proyecto, { headers: this.getAuthHeaders() });
+  }
+
+  // Eliminar un proyecto
+  eliminarProyecto(proyectoId: string): Observable<{ message: string; proyectoId: string }> {
+    return this.http.delete<{ message: string; proyectoId: string }>(`${this.baseUrl}/eliminarProyecto/${proyectoId}`, { headers: this.getAuthHeaders() });
+  }
 }

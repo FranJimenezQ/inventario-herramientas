@@ -10,14 +10,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { RegistrarHerramientaComponent } from '../modals/herramienta-modals/registrar-herramienta/registrar-herramienta.component';
 import { DatePipe, CommonModule } from '@angular/common';
 import { AccionesHerramientaComponent } from '../modals/herramienta-modals/acciones-herramienta/acciones-herramienta.component';
-import { MatIcon } from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from '@angular/material/button';
 
 
 
 @Component({
   selector: 'app-dashboard-herramientas',
   standalone: true,
-  imports: [MatTableModule, MatChipsModule, DatePipe, CommonModule, MatIcon],
+  imports: [MatTableModule, MatChipsModule, DatePipe, CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './dashboard-herramientas.component.html',
   styleUrl: './dashboard-herramientas.component.scss'
 })

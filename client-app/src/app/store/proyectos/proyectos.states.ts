@@ -12,16 +12,19 @@ export interface ProyectosState {
     loading: boolean;
     success: boolean;
     error: any;
+    message?: string;
   };
   actualizar: {
     loading: boolean;
     success: boolean;
     error: any;
+    message?: string;
   };
   eliminar: {
     loading: boolean;
     success: boolean;
     error: any;
+    message?: string;
   };
 }
 
@@ -32,16 +35,19 @@ export const initialProyectosState: ProyectosState = {
   crear: {
     loading: false,
     success: false,
-    error: null
+    error: null,
+    message: ''
   },
   actualizar: {
     loading: false,
     success: false,
-    error: null
+    error: null,
+    message: ''
   },
   eliminar: {
     loading: false,
     success: false,
-    error: null
+    error: null,
+    message: ''
   }
 };

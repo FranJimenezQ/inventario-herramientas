@@ -50,10 +50,10 @@ export const selectCrearProyectoError = createSelector(
 // Selector para saber si se eliminó un proyecto
 export const selectProyectoEliminado = createSelector(
   selectProyectosState,
-  (state: ProyectosState) => state.eliminar.success
+  (state: ProyectosState) => ({ success: state.eliminar.success, message: state.eliminar.message })
 );
 // Selector para saber si se actualizó un proyecto
 export const selectProyectoActualizado = createSelector(
   selectProyectosState,
-  (state: ProyectosState) => state.actualizar.success
+  (state: ProyectosState) => ({ success: state.actualizar.success, message: state.actualizar.message })
 );

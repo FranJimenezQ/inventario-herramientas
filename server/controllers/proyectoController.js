@@ -44,14 +44,14 @@ export const obtenerHerramientaPorProyecto = async ( req, res) => {
 
 //Eliminar un proyecto
 export const eliminarProyecto = async (req, res) => {
-    const { numeroProyecto } = req.params;
+    const { proyectoId } = req.params;
 
     try {
-        const proyectoEliminado = await Proyecto.findOneAndDelete({numeroProyecto: numeroProyecto});
+        const proyectoEliminado = await Proyecto.findOneAndDelete({ _id: proyectoId });
         if (!proyectoEliminado) {
             return res.status(404).json({ message: "Proyecto no encontrado" });
         }
-        res.json({ message: "Proyecto eliminado correctamente" });
+        res.json({ message: "Proyecto eliminado correctamente", proyecto: proyectoEliminado });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al eliminar proyecto", error: error });
@@ -66,5 +66,26 @@ export const obtenerProyectos = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al obtener proyectos", error: error });
+    }
+};
+
+//Actualizar un proyecto
+export const actualizarProyecto = async (req, res) => {
+    const { proyectoId } = req.params;
+    const { nombre, numeroProyecto, direccion } = req.body;
+
+    try {
+        const proyectoActualizado = await Proyecto.findOneAndUpdate(
+            { _id: proyectoId },
+            { nombre, numeroProyecto, direccion },
+            { new: true }
+        );
+        if (!proyectoActualizado) {
+            return res.status(404).json({ message: "Proyecto no encontrado" });
+        }
+        res.status(200).json({ message: "Proyecto actualizado correctamente", proyecto: proyectoActualizado });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al actualizar proyecto", error: error });
     }
 };

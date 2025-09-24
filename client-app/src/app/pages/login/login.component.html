@@ -1,6 +1,8 @@
 <div class="login-container">
     <mat-card class="login-card">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>  <!-- Replace with your own icon -->
+      <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>  Replace with your own icon -->
+      <!-- I need to replace the icon with the  edival-logo -->
+      <img src="./../../../assets/imagenes/edival-logo.jpg" alt="Edival Logo" class="logo-icon" />
       <mat-card-title>Iniciar Sesión</mat-card-title>
       <mat-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -23,9 +25,9 @@
             </mat-error>
           </mat-form-field>
 
-          <button mat-raised-button color="primary" class="full-width"
-          type="submit"
-          (click)="login()">Ingresar</button>
+          <button mat-raised-button color="primary" class="full-width mb-3 login-button"
+          type="submit">Ingresar
+          </button>
         </form>
         <div *ngIf="mensageExitoLogin" class="loginMessage">
           {{ mensageExitoLogin }}

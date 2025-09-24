@@ -1,1 +1,47 @@
-<p>dashboard-proyectos works!</p>
+<!-- I need to create a table for proyectos with a mat-chip on the top -->
+<mat-chip-set>
+  <mat-chip color="primary" (click)="registrarUnProyecto()">Agregar un proyecto</mat-chip>
+</mat-chip-set>
+
+  <!-- Table container with scroll -->
+   <div class="tabla-scroll">
+     <table mat-table [dataSource]="proyectos" class="mat-elevation-z8">
+         <ng-container matColumnDef="nombre">
+           <th mat-header-cell *matHeaderCellDef > Nombre </th>
+           <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+         </ng-container>
+
+         <!-- <ng-container matColumnDef="descripcion">
+           <th mat-header-cell *matHeaderCellDef > Descripción </th>
+           <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+         </ng-container> -->
+
+         <ng-container matColumnDef="numeroProyecto">
+           <th mat-header-cell *matHeaderCellDef > Número de Proyecto </th>
+           <td mat-cell *matCellDef="let element"> {{element.numeroProyecto}} </td>
+         </ng-container>
+
+         <ng-container matColumnDef="direccion">
+           <th mat-header-cell *matHeaderCellDef > Dirección </th>
+           <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+         </ng-container>
+
+         <ng-container matColumnDef="acciones">
+           <th mat-header-cell *matHeaderCellDef > Acciones </th>
+           <td mat-cell *matCellDef="let element">
+             <button mat-button class="btn-acciones primary" (click)="editarProyecto(element)">
+               Acciones
+               <mat-icon>edit</mat-icon>
+             </button>
+             <button mat-button class="btn-acciones accent" (click)="abrirDetallesProyecto(element.id)">
+               Historial
+               <mat-icon>history</mat-icon>
+             </button>
+           </td>
+         </ng-container>
+
+         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     </table>
+
+   </div>

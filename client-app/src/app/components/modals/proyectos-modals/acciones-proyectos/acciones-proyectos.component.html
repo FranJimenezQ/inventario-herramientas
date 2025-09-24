@@ -1,0 +1,77 @@
+<div class="modal-acciones-container">
+  <div class="modal-title">
+    <h1>Acciones para proyecto</h1>
+  </div>
+  <div class="herramienta-info">
+    <p>Nombre: {{ data.proyecto.nombre }}</p>
+    <p>Número de Proyecto: {{ data.proyecto.numeroProyecto }}</p>
+
+  </div>
+  <div class="modal-acciones">
+    <button mat-button (click)="editarProyecto()">Editar</button>
+    <button mat-button (click)="eliminarProyecto()">Eliminar</button>
+    <button mat-button (click)="cerrarModal()">Cerrar</button>
+  </div>
+
+  <form [formGroup]="proyectoActualizado" (ngSubmit)="onSubmit()">
+    <ng-container [ngSwitch]="accionSeleccionada">
+      <div class="acciones-container">
+        <!-- Eliminar -->
+        <div *ngSwitchCase="'eliminar'">
+          <div class="eliminar-form-container">
+            <p>
+              ¿Seguro que deseas eliminar el proyecto
+              <b>{{ data.proyecto.nombre }}</b
+              >?
+            </p>
+            <button mat-button class="btn-accion" type="submit">
+              Confirmar eliminación
+            </button>
+            <div *ngIf="mensajeExito" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle</span>
+              </mat-icon>
+              <p>{{mensajeExito}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actualizar -->
+        <div *ngSwitchCase="'actualizar'">
+          <div class="actualizar-form-container">
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Nombre de proyecto</mat-label>
+                <input matInput formControlName="nombre" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Número de proyecto</mat-label>
+                <input matInput formControlName="numeroProyecto" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName="direccion" />
+              </mat-form-field>
+            </div>
+            <button
+              mat-raised-button
+              [disabled]="proyectoActualizado.invalid"
+              class="btn-accion"
+              color="primary"
+              type="submit"
+            >
+              Actualizar
+            </button>
+            <div *ngIf="isLoading" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle</span>
+              </mat-icon>
+              <p>Herramienta Actualizada con éxito</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+  </form>
+</div>

@@ -32,11 +32,45 @@ export class ProyectosEffects {
       ofType(proyectosActions.crearProyecto),
       mergeMap((action) =>
         this.proyectosService.crearProyecto(action.proyecto).pipe(
-          map((proyecto: Proyecto) =>
-            proyectosActions.crearProyectoSuccess({ proyecto })
+          map((response: any) =>
+            proyectosActions.crearProyectoSuccess({ proyecto: response.proyecto })
           ),
           catchError((error) =>
             of(proyectosActions.crearProyectoFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  //Efecto para actualizar un proyecto
+  actualizarProyecto$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(proyectosActions.actualizarProyecto),
+      mergeMap((action) =>
+        this.proyectosService.actualizarProyecto(action.id, action.proyecto).pipe(
+          map((response: any) =>
+            proyectosActions.actualizarProyectoSuccess({  proyecto: response.proyecto, message: response.message })
+          ),
+          catchError((error) =>
+            of(proyectosActions.actualizarProyectoFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  //Efecto para eliminar un proyecto
+  eliminarProyecto$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(proyectosActions.eliminarProyecto),
+      mergeMap((action) =>
+        this.proyectosService.eliminarProyecto(action.proyectoId).pipe(
+          map((response: any) =>
+            proyectosActions.eliminarProyectoSuccess({ message: response.message, proyecto: response.proyecto })
+          ),
+          catchError((error) =>
+            of(proyectosActions.eliminarProyectoFailure({ error }))
           )
         )
       )
