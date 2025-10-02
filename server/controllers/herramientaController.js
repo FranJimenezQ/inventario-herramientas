@@ -135,7 +135,7 @@ export const obtenerHerramientasPorProyecto = async (req, res) => {
     try {
         const { proyectoId } = req.params;
         const herramientas = await Herramienta.find({ proyectoAsignado: proyectoId });
-        res.json(herramientas);
+        res.json({herramientas});
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener herramientas por proyecto', error: error });
     }

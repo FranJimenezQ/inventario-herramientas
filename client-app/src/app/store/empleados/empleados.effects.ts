@@ -30,8 +30,8 @@ export class EmpleadosEffects {
       ofType(empleadosActions.crearEmpleado),
       mergeMap(({ empleado }) =>
         this.empleadosService.crearEmpleado(empleado).pipe(
-          map((empleado: Empleado) =>
-            empleadosActions.crearEmpleadoSuccess({ empleado })
+          map((response: any) =>
+            empleadosActions.crearEmpleadoSuccess({mensaje: response.mensaje, empleado: response.empleado })
           ),
           catchError((error) =>
             of(empleadosActions.crearEmpleadoFailure({ error }))

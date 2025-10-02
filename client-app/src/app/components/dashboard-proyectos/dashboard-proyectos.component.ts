@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { Proyecto } from '../../store/proyectos/proyectos.states';
 import { RegistrarProyectoComponent } from '../modals/proyectos-modals/register-project/registrar-proyecto.component';
 import { AccionesProyectosComponent } from '../modals/proyectos-modals/acciones-proyectos/acciones-proyectos.component';
+import { HistorialProyectosModalComponent } from '../modals/proyectos-modals/historial-proyectos-modal/historial-proyectos-modal.component';
 @Component({
   selector: 'app-dashboard-proyectos',
   standalone: true,
@@ -48,6 +49,11 @@ export class DashboardProyectosComponent implements OnInit, OnDestroy {
   }
   abrirDetallesProyecto(proyectoId: string) {
     // Implementa la lógica para abrir los detalles del proyecto
+    this.dialog.open(HistorialProyectosModalComponent,
+      {
+        data: { proyectoId }
+      }
+    )
   }
 
 

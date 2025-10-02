@@ -111,4 +111,29 @@ export const proyectosReducer = createReducer(
       error
     }
   })),
+  //Obtener herramientas por proyecto
+  on(ProyectosActions.obtenerHerramientasPorProyecto, state => ({
+    ...state,
+    herramientas: {
+      loading: true,
+      herramientas: [],
+      error: null
+    }
+  })),
+  on(ProyectosActions.obtenerHerramientasPorProyectoSuccess, (state, { herramientas }) => ({
+    ...state,
+    herramientas: {
+      loading: false,
+      herramientas,
+      error: null
+    }
+  })),
+  on(ProyectosActions.obtenerHerramientasPorProyectoFailure, (state, { error }) => ({
+    ...state,
+    herramientas: {
+      loading: false,
+      herramientas: [],
+      error
+    }
+  }))
 );

@@ -27,11 +27,15 @@ export const empleadosReducer = createReducer(
       loading: true
     }
   })),
-  on(empleadosActions.crearEmpleadoSuccess, (state, { empleado }) => ({
+  on(empleadosActions.crearEmpleadoSuccess, (state, { mensaje, empleado }) => ({
     ...state,
+    empleados: [...state.empleados, empleado],
     crear: {
       ...state.crear,
       loading: false,
+      success: true,
+      error: null,
+      mensaje,
       empleado
     }
   })),

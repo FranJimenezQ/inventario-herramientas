@@ -3,7 +3,7 @@ import { crearEmpleado, obtenerEmpleadoPorId, obtenerEmpleados, actualizarEmplea
 import { authMiddleware } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
-router.post('/', authMiddleware, crearEmpleado);
+router.post('/registrarEmpleado', authMiddleware, crearEmpleado);
 router.get('/', authMiddleware, obtenerEmpleados);
 router.get('/:id', authMiddleware, obtenerEmpleadoPorId);
 router.put('/:idPersonal', authMiddleware, actualizarEmpleado);

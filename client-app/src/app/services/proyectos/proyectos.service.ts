@@ -35,4 +35,9 @@ export class ProyectosService {
   eliminarProyecto(proyectoId: string): Observable<{ message: string; proyectoId: string }> {
     return this.http.delete<{ message: string; proyectoId: string }>(`${this.baseUrl}/eliminarProyecto/${proyectoId}`, { headers: this.getAuthHeaders() });
   }
+
+  // todas las herramientas asociadas a un proyecto
+  obtenerHerramientasPorProyecto(proyectoId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/herramientas/${proyectoId}`, { headers: this.getAuthHeaders() });
+  }
 }

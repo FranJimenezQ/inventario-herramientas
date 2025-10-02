@@ -57,3 +57,17 @@ export const selectProyectoActualizado = createSelector(
   selectProyectosState,
   (state: ProyectosState) => ({ success: state.actualizar.success, message: state.actualizar.message })
 );
+
+// Selector para obtener herramientas por proyecto
+export const selectHerramientasPorProyecto = createSelector(
+  selectProyectosState,
+  (state: ProyectosState) => state.herramientas.herramientas
+);
+export const selectHerramientasLoading = createSelector(
+  selectProyectosState,
+  (state: ProyectosState) => state.herramientas.loading
+);
+export const selectHerramientasError = createSelector(
+  selectProyectosState,
+  (state: ProyectosState) => state.herramientas.error
+);

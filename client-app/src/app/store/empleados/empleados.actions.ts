@@ -19,7 +19,7 @@ export const crearEmpleado = createAction(
 );
 export const crearEmpleadoSuccess = createAction(
   '[Empleados] Crear Empleado Success',
-  props<{ empleado: Empleado }>()
+  props<{ mensaje: string; empleado: Empleado }>()
 );
 export const crearEmpleadoFailure = createAction(
   '[Empleados] Crear Empleado Failure',

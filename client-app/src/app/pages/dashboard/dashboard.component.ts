@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.store.dispatch(cargarHerramientas());
         this.store.dispatch(cargarEmpleados());
         this.store.dispatch(cargarProyectos());
+        this.store.dispatch(cargarEmpleados());
     }
 
 

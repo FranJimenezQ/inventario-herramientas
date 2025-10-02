@@ -26,6 +26,11 @@ export interface ProyectosState {
     error: any;
     message?: string;
   };
+  herramientas: {
+    loading: boolean;
+    herramientas: any[];
+    error: any;
+  };
 }
 
 export const initialProyectosState: ProyectosState = {
@@ -49,5 +54,10 @@ export const initialProyectosState: ProyectosState = {
     success: false,
     error: null,
     message: ''
+  },
+  herramientas: {
+    loading: false,
+    herramientas: [],
+    error: null
   }
 };

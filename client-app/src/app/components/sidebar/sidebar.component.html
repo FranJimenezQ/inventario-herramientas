@@ -5,8 +5,9 @@
     <nav class="nav-links">
       <div class="initial-nav-item">
         <button mat-raised-button color="accent" [routerLink]="['/dashboard']">Inicio</button>
-        <button mat-raised-button color="accent" [routerLink]="['/dashboard', 'herramientas']">Reporte herramienta</button>
-        <button mat-raised-button color="accent" [routerLink]="['/dashboard', 'proyectos']">Reporte proyectos</button>
+        <button mat-raised-button color="accent" [routerLink]="['/dashboard', 'herramientas']">Módulo herramienta</button>
+        <button mat-raised-button color="accent" [routerLink]="['/dashboard', 'proyectos']">Módulo proyectos</button>
+        <button mat-raised-button color="accent" [routerLink]="['/dashboard', 'empleados']">Módulo empleados</button>
       </div>
       <div class="logout-nav-item-container">
         <button mat-raised-button color="warn" (click)="logout()">Cerrar Sesión</button>

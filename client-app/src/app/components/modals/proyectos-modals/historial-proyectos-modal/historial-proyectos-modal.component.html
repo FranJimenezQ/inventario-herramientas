@@ -1,0 +1,45 @@
+<!-- Este componente debe mostrar una tabla de las herramientas asignadas a un proyecto en un rango de un mes
+ debemos utilizar un mat-table de Angular Material -->
+<div class="modal-historial-proyectos-container">
+  <div class="title">
+    <h2>Historial de Proyectos</h2>
+  </div>
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+
+      <!-- Modelo Column -->
+      <ng-container matColumnDef="modelo">
+        <th mat-header-cell *matHeaderCellDef> Modelo </th>
+        <td mat-cell *matCellDef="let element"> {{element.modelo}} </td>
+      </ng-container>
+
+      <!-- Marca Column -->
+      <ng-container matColumnDef="marca">
+        <th mat-header-cell *matHeaderCellDef> Marca </th>
+        <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
+      </ng-container>
+
+      <!-- Fecha de Asignación Column -->
+      <ng-container matColumnDef="fechaAsignacion">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Asignación </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaSalida | date: 'short'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!-- Si no hay herramientas, mostrar un mensaje -->
+    <div *ngIf="!dataSource || dataSource.length === 0" class="no-data-message">
+      <p>No hay herramientas asignadas a este proyecto actualmente.</p>
+    </div>
+  </div>
+  <div class="modal-buttons-container">
+    <button mat-button (click)="cerrarModal()">Cerrar</button>
+  </div>
+</div>

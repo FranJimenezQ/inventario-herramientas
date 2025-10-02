@@ -89,7 +89,7 @@ export class AccionesProyectosComponent implements OnInit {
         });
         break;
       case 'actualizar':
-        if(this.proyectoActualizado.valid){ return; }
+        if(this.proyectoActualizado.invalid){ return; }
         // Lógica para actualizar el proyecto
         const { nombre, numeroProyecto, direccion } = this.proyectoActualizado.value;
         const proyectoActualizado = { _id: proyectoId, nombre, numeroProyecto, direccion };

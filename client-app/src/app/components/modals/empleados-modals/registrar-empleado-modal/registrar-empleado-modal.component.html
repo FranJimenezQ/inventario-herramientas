@@ -1,0 +1,33 @@
+<!-- Crear un modal con un formulario para registrar un nuevo empleado -->
+<div class="modal-empleado-container">
+  <div class="title">
+    <h2>Registrar un empleado</h2>
+  </div>
+  <!-- Esto tiene que estar dentro de un form -->
+  <form class="modal-form"  [formGroup]="empleadoForm" (ngSubmit)="guardarEmpleado()">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre:</mat-label>
+      <input matInput type="text" formControlName="nombre"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido:</mat-label>
+      <input matInput type="text" formControlName="apellido"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cargo:</mat-label>
+      <input matInput type="text" formControlName="cargo"  />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>ID Personal:</mat-label>
+      <input matInput type="number" formControlName="idPersonal"  />
+    </mat-form-field>
+      <span>(*) Campos obligatorios</span>
+    <div class="modal-buttons-container">
+      <button mat-button (click)="cerrarModal()">Cancelar</button>
+      <button mat-raised-button type="submit" [disabled]="empleadoForm.invalid">Crear</button>
+    </div>
+    <div class="spinner-container">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+  </form>
+</div>

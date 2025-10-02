@@ -53,3 +53,17 @@ export const eliminarProyectoFailure = createAction(
   '[Proyectos] Eliminar Proyecto Failure',
   props<{ error: any }>()
 );
+
+//Acciones para obtener herramientas por proyecto
+export const obtenerHerramientasPorProyecto = createAction(
+  '[Proyectos] Obtener Herramientas Por Proyecto',
+  props<{ proyectoId: string }>()
+);
+export const obtenerHerramientasPorProyectoSuccess = createAction(
+  '[Proyectos] Obtener Herramientas Por Proyecto Success',
+  props<{ herramientas: any[] }>()
+);
+export const obtenerHerramientasPorProyectoFailure = createAction(
+  '[Proyectos] Obtener Herramientas Por Proyecto Failure',
+  props<{ error: any }>()
+);

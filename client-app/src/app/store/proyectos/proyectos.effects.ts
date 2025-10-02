@@ -76,4 +76,21 @@ export class ProyectosEffects {
       )
     )
   );
+
+  //Efecto para obtener herramientas por proyecto
+  obtenerHerramientasPorProyecto$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(proyectosActions.obtenerHerramientasPorProyecto),
+      mergeMap((action) =>
+        this.proyectosService.obtenerHerramientasPorProyecto(action.proyectoId).pipe(
+          map((response: any) =>
+            proyectosActions.obtenerHerramientasPorProyectoSuccess({ herramientas: response.herramientas })
+          ),
+          catchError((error) =>
+            of(proyectosActions.obtenerHerramientasPorProyectoFailure({ error }))
+          )
+        )
+      )
+    )
+  );
 }

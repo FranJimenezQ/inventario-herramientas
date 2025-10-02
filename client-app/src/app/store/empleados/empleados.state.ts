@@ -14,6 +14,8 @@ export interface EmpleadosState {
     loading: boolean;
     success: boolean;
     error: any;
+    mensaje?: string | null;
+    empleado?: Empleado | null;
   };
   actualizar: {
     loading: boolean;
