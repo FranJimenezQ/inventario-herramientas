@@ -23,4 +23,14 @@ export class EmpleadosService {
   crearEmpleado(empleado: Empleado): Observable<Empleado> {
     return this.httpClient.post<Empleado>(`${this.baseUrl}/registrarEmpleado`, empleado, { headers: this.getAuthHeaders() });
   }
+
+  // Método para actualizar un empleado existente
+  actualizarEmpleado(_id: string, empleado: Empleado): Observable<Empleado> {
+    return this.httpClient.put<Empleado>(`${this.baseUrl}/actualizarEmpleado/${_id}`, empleado, { headers: this.getAuthHeaders() });
+  }
+
+  // Método para eliminar un empleado
+  eliminarEmpleado(_id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/eliminarEmpleado/${_id}`, { headers: this.getAuthHeaders() });
+  }
 }

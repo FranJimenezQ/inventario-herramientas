@@ -37,14 +37,14 @@ export const obtenerEmpleadoPorId = async (req, res) => {
 };
 
 export const actualizarEmpleado = async (req, res) => {
-    const { idPersonal } = req.params;
+    const { _id } = req.params;
     const datosActualizados = req.body;
     try {
-        const empleado = await EmpleadoProyecto.findOneAndUpdate({idPersonal: idPersonal}, datosActualizados, { new: true });
-        if (!empleado) {
+        const empleadoActualizado = await EmpleadoProyecto.findOneAndUpdate({_id: _id}, datosActualizados, { new: true });
+        if (!empleadoActualizado) {
             return res.status(404).json({ message: "Empleado no encontrado" });
         }
-        res.json(empleado);
+        res.json({ mensaje: "Empleado actualizado correctamente", empleado: empleadoActualizado });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al actualizar empleado", error: error });
@@ -52,13 +52,13 @@ export const actualizarEmpleado = async (req, res) => {
 };
 
 export const eliminarEmpleado = async (req, res) => {
-    const { idPersonal } = req.params;
+    const { empleadoId } = req.params;
     try {
-        const empleadoEliminado = await EmpleadoProyecto.findOneAndDelete({idPersonal: idPersonal});
+        const empleadoEliminado = await EmpleadoProyecto.findOneAndDelete({ _id: empleadoId });
         if (!empleadoEliminado) {
             return res.status(404).json({ message: "Empleado no encontrado" });
         }
-        res.json({ message: "Empleado eliminado correctamente" });
+        res.json({ message: "Empleado eliminado correctamente", empleado: empleadoEliminado });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al eliminar empleado", error: error });

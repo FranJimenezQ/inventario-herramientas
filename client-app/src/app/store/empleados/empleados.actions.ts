@@ -29,11 +29,11 @@ export const crearEmpleadoFailure = createAction(
 //Acciones para actualizar un empleado
 export const actualizarEmpleado = createAction(
   '[Empleados] Actualizar Empleado',
-  props<{ id: string; empleado: Empleado }>()
+  props<{ _id: string; empleado: Empleado }>()
 );
 export const actualizarEmpleadoSuccess = createAction(
   '[Empleados] Actualizar Empleado Success',
-  props<{ empleado: Empleado }>()
+  props<{ mensaje: string; empleado: Empleado }>()
 );
 export const actualizarEmpleadoFailure = createAction(
   '[Empleados] Actualizar Empleado Failure',
@@ -43,10 +43,11 @@ export const actualizarEmpleadoFailure = createAction(
 //Acciones para eliminar un empleado
 export const eliminarEmpleado = createAction(
   '[Empleados] Eliminar Empleado',
-  props<{ idPersonal: string }>()
+  props<{ empleadoId: string }>()
 );
 export const eliminarEmpleadoSuccess = createAction(
-  '[Empleados] Eliminar Empleado Success'
+  '[Empleados] Eliminar Empleado Success',
+  props<{ mensaje: string, empleado: Empleado }>()
 );
 export const eliminarEmpleadoFailure = createAction(
   '[Empleados] Eliminar Empleado Failure',

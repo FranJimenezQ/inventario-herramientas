@@ -34,11 +34,11 @@ export const selectCrearEmpleadoError = createSelector(
 // Selector para saber si se eliminó un empleado
 export const selectEmpleadoEliminado = createSelector(
   selectEmpleadosState,
-  (state: EmpleadosState) => state.eliminar.success
+  (state: EmpleadosState) => state.eliminar
 );
 
 // Selector para saber si se actualizó un empleado
 export const selectEmpleadoActualizado = createSelector(
   selectEmpleadosState,
-  (state: EmpleadosState) => state.actualizar.success
+  (state: EmpleadosState) => state.actualizar
 );

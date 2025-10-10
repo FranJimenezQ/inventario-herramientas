@@ -1,6 +1,6 @@
 <div class="modal-acciones-container">
   <div class="modal-title">
-    <h1>Acciones para proyecto</h1>
+    <h1>Acciones para Empleado</h1>
   </div>
   <div class="herramienta-info">
     <p>Nombre: {{ data.empleado.nombre }}</p>
@@ -32,6 +32,13 @@
                 <span class="material-symbols-rounded">check_circle</span>
               </mat-icon>
               <p>{{mensajeExito}}</p>
+            </div>
+
+            <div *ngIf="hasError" class="herramienta-error-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">error</span>
+              </mat-icon>
+              <p>{{mensajeError}}</p>
             </div>
           </div>
         </div>
@@ -73,7 +80,13 @@
               <mat-icon>
                 <span class="material-symbols-rounded">check_circle</span>
               </mat-icon>
-              <p>Empleado Actualizado con éxito</p>
+              <p>{{mensajeExito}}</p>
+            </div>
+            <div *ngIf="hasError" class="herramienta-error-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">error</span>
+              </mat-icon>
+              <p>{{mensajeError}}</p>
             </div>
           </div>
         </div>

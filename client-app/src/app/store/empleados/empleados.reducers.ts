@@ -55,11 +55,15 @@ export const empleadosReducer = createReducer(
       loading: true
     }
   })),
-  on(empleadosActions.actualizarEmpleadoSuccess, (state, { empleado }) => ({
+  on(empleadosActions.actualizarEmpleadoSuccess, (state, { mensaje, empleado }) => ({
     ...state,
+    empleados: state.empleados.map(emp => emp._id === empleado._id ? empleado : emp),
     actualizar: {
       ...state.actualizar,
       loading: false,
+      success: true,
+      error: null,
+      mensaje,
       empleado
     }
   })),
@@ -68,27 +72,40 @@ export const empleadosReducer = createReducer(
     actualizar: {
       ...state.actualizar,
       loading: false,
-      error
+      error: true
     }
   })),
+
+
   //Eliminar empleado
-  on(empleadosActions.eliminarEmpleado, (state, { idPersonal }) => ({
+  on(empleadosActions.eliminarEmpleado, (state) => ({
     ...state,
-    empleados: state.empleados.filter(empleado => empleado._id !== idPersonal)
+    eliminar: {
+      loading: true,
+      success: false,
+      error: null
+
+    }
   })),
-  on(empleadosActions.eliminarEmpleadoSuccess, (state) => ({
+  on(empleadosActions.eliminarEmpleadoSuccess, (state, { mensaje, empleado }) => ({
     ...state,
+    empleados: state.empleados.filter(emp => emp._id !== empleado._id),
     eliminar: {
       loading: false,
       success: true,
-      error: null
+      mensaje,
+      error: null,
+      empleado
+
     }
   })),  on(empleadosActions.eliminarEmpleadoFailure, (state, { error }) => ({
     ...state,
     eliminar: {
       ...state.eliminar,
       loading: false,
-      error
+      success: false,
+      mensaje: error,
+      error: true
     }
   })),
 );

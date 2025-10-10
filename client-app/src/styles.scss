@@ -93,6 +93,29 @@ body {
   margin-top: 10px;
 }
 
+      .herramienta-success-mensaje {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: green;
+        font-weight: bold;
+        justify-content: center;
+        mat-icon {
+          font-size: 24px;
+        }
+      }
+      .herramienta-error-mensaje {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: red;
+        font-weight: bold;
+        justify-content: center;
+        mat-icon {
+          font-size: 24px;
+        }
+      }
+
 //Altura para las tablas y scroll
 // .tabla-scroll {
 //   display: block;

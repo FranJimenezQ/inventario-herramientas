@@ -40,4 +40,38 @@ export class EmpleadosEffects {
       )
     )
   );
+
+  //Efecto para actualizar un empleado
+  actualizarEmpleado$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(empleadosActions.actualizarEmpleado),
+      mergeMap(({ _id, empleado }) =>
+        this.empleadosService.actualizarEmpleado(_id, empleado).pipe(
+          map((response: any) =>
+            empleadosActions.actualizarEmpleadoSuccess({ mensaje: response.mensaje, empleado: response.empleado})
+          ),
+          catchError((error) =>
+            of(empleadosActions.actualizarEmpleadoFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  //Efecto para eliminar un empleado
+  eliminarEmpleado$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(empleadosActions.eliminarEmpleado),
+      mergeMap((action) =>
+        this.empleadosService.eliminarEmpleado(action.empleadoId).pipe(
+          map((response: any) =>
+            empleadosActions.eliminarEmpleadoSuccess({ mensaje: response.mensaje, empleado: response.empleado})
+          ),
+          catchError((error) =>
+            of(empleadosActions.eliminarEmpleadoFailure({ error: error?.error?.message || 'Error al eliminar empleado' }))
+          )
+        )
+      )
+    )
+  );
 }

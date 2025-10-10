@@ -27,11 +27,15 @@ export class AccionesEmpleadoModalComponent {
 
 
     public empleadoSubscriber!: Subscription;
+    public empleadoActualizadoSubscriber!: Subscription;
+    public empleadoEliminadoSubscriber!: Subscription;
     public empleadoActualizado!: FormGroup;
     public empleadosData: Empleado[] = [];
     public accionSeleccionada: string | null = null;
     public isLoading: boolean = false;
     public mensajeExito: string = '';
+    public hasError: boolean = false;
+    public mensajeError: string = '';
 
     constructor(
       @Inject(MAT_DIALOG_DATA) public data: { empleado: Empleado },
@@ -68,30 +72,54 @@ export class AccionesEmpleadoModalComponent {
       });
     }
     eliminarEmpleado() {
-      // Lógica para eliminar el empleado
       this.accionSeleccionada = 'eliminar';
 
     }
 
     onSubmit() {
       const empleadoId = this.data.empleado._id;
-
       switch (this.accionSeleccionada) {
         case 'eliminar':
-          //this.eliminarEmpleadoConfirm(empleadoId!);
-          this.store.dispatch(empleadosActions.eliminarEmpleado({ idPersonal: this.data.empleado.idPersonal }));
-          this.store.select(empleadosSelectors.selectEmpleadoEliminado).subscribe(success => {
-            if (success) {
-              this.cerrarModal();
+          this.store.dispatch(empleadosActions.eliminarEmpleado({ empleadoId: empleadoId }));
+          this.empleadoEliminadoSubscriber = this.store.select(empleadosSelectors.selectEmpleadoEliminado).subscribe(response => {
+            if (response.success) {
+              this.isLoading = true;
+              this.mensajeExito = response.mensaje || 'Empleado eliminado con éxito';
+              setTimeout(() => {
+                this.isLoading = false;
+                this.cerrarModal();
+              }, 2000);
+            } else if (response.error) {
+              this.isLoading = false;
+              this.hasError = true;
+              this.mensajeError = response.mensaje || 'Error al eliminar el empleado';
+              console.error('Error al eliminar el empleado:', response.error);
+              setTimeout(() => {
+                this.hasError = false;
+                this.cerrarModal();
+              }, 2000);
             }
           });
           break;
-        case 'editar':
+        case 'actualizar':
           if (this.empleadoActualizado.invalid) {return;}
-          this.store.dispatch(empleadosActions.actualizarEmpleado({ id: empleadoId, empleado: this.empleadoActualizado.value }));
-          this.store.select(empleadosSelectors.selectEmpleadoActualizado).subscribe(success => {
-            if (success) {
+          this.store.dispatch(empleadosActions.actualizarEmpleado({ _id: empleadoId, empleado: this.empleadoActualizado.value }));
+          this.empleadoActualizadoSubscriber = this.store.select(empleadosSelectors.selectEmpleadoActualizado).subscribe(response => {
+            if (response.success) {
+              this.isLoading = true;
+              this.mensajeExito = response.mensaje || 'Empleado actualizado con éxito';
+              setTimeout(() => {
+                this.isLoading = false;
+                this.cerrarModal();
+              }, 2000);
+            } else if (response.error) {
+              this.isLoading = false;
+              this.mensajeError = response.error || 'Error al actualizar el empleado';
+              this.hasError = true;
+            setTimeout(() => {
+              this.hasError = false;
               this.cerrarModal();
+            }, 2000);
             }
           });
           break;
@@ -100,6 +128,7 @@ export class AccionesEmpleadoModalComponent {
 
     ngOnDestroy() {
       this.empleadoSubscriber?.unsubscribe();
+      this.empleadoActualizadoSubscriber?.unsubscribe();
+      this.empleadoEliminadoSubscriber?.unsubscribe();
     }
 }
-

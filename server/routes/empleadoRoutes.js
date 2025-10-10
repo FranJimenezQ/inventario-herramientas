@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/registrarEmpleado', authMiddleware, crearEmpleado);
 router.get('/', authMiddleware, obtenerEmpleados);
 router.get('/:id', authMiddleware, obtenerEmpleadoPorId);
-router.put('/:idPersonal', authMiddleware, actualizarEmpleado);
-router.delete('/:idPersonal', authMiddleware, eliminarEmpleado);
+router.put('/actualizarEmpleado/:_id', authMiddleware, actualizarEmpleado);
+router.delete('/eliminarEmpleado/:empleadoId', authMiddleware, eliminarEmpleado);
 
 export default router;

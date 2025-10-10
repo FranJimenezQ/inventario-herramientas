@@ -21,11 +21,15 @@ export interface EmpleadosState {
     loading: boolean;
     success: boolean;
     error: any;
+    mensaje?: string | null;
+    empleado?: Empleado | null;
   };
   eliminar: {
     loading: boolean;
     success: boolean;
     error: any;
+    mensaje?: string | null;
+    empleado?: Empleado | null;
   };
 }
 export const initialEmpleadosState: EmpleadosState = {
@@ -35,12 +39,16 @@ export const initialEmpleadosState: EmpleadosState = {
   crear: {
     loading: false,
     success: false,
-    error: null
+    error: null,
+    mensaje: null,
+    empleado: null
   },
   actualizar: {
     loading: false,
     success: false,
-    error: null
+    error: null,
+    mensaje: null,
+    empleado: null
   },
   eliminar: {
     loading: false,
