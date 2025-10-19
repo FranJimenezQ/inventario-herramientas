@@ -17,19 +17,20 @@ export class AuthEffects {
 
   // Login effect for user authentication
   loginEffect = createEffect(() => this.actions$.pipe(
-    ofType(login),
-    mergeMap(({ email, password }) =>
-      this.authService.login({ email, password }).pipe(
-        map(response => {
-          const tokenExpiration = Date.now() + 60 * 60 * 1000;
-          sessionStorage.setItem('token', response.token);
-          sessionStorage.setItem('tokenExpiration', tokenExpiration.toString());
-          return loginSuccess({ token: response.token, message: response.message });
-        }),
-        catchError(error => of(loginFailure({ error: error.message })))
+      ofType(login),
+      mergeMap(({ email, password }) =>
+        this.authService.login({ email, password }).pipe(
+          map(response => {
+            const tokenExpiration = Date.now() + 60 * 60 * 1000;
+            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('tokenExpiration', tokenExpiration.toString());
+            sessionStorage.setItem('usuario', JSON.stringify(response.usuario));
+            return loginSuccess({ token: response.token, message: response.message, usuario: response.usuario });
+          }),
+          catchError(error => of(loginFailure({ error: error.message })))
+        )
       )
     )
-  )
   )
 
   // Logout effect for user authentication
@@ -38,6 +39,7 @@ export class AuthEffects {
     mergeMap(() => {
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('tokenExpiration');
+      sessionStorage.removeItem('usuario');
       this.router.navigate(['/login']);
 
       return of(logoutSuccess());
@@ -50,14 +52,22 @@ export class AuthEffects {
     mergeMap(() => {
       const token = sessionStorage.getItem('token');
       const tokenExpiration = sessionStorage.getItem('tokenExpiration');
+      const usuario = sessionStorage.getItem('usuario');
+      let usuarioObj = null;
+      try {
+        usuarioObj = usuario && usuario !== 'undefined' ? JSON.parse(usuario) : null;
+      } catch {
+        usuarioObj = null;
+      }
 
       if (token && tokenExpiration && Date.now() < +tokenExpiration) {
 
-        return of(loginSuccess({ token, message: 'Token refreshed successfully' }));
+        return of(loginSuccess({ token, message: 'Token refreshed successfully', usuario: usuarioObj }));
 
       } else {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('tokenExpiration');
+        sessionStorage.removeItem('usuario');
         return of(logout());
       }
 

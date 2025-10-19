@@ -65,7 +65,18 @@ export const loginUsuario = async (req, res) => {
         //Generar el token JWT
         const token = jwt.sign({ id: usuario.email  , rol: usuario.rol }, JWT_SECRET, { expiresIn: '24h' });
 
-        res.status(200).json({ message: 'Inicio de sesión exitoso', token });
+        res.status(200).json(
+            { 
+                message: 'Inicio de sesión exitoso', 
+                token,
+                usuario: {
+                    id: usuario.id,
+                    nombre: usuario.nombre, 
+                    apellido: usuario.apellido,
+                    email: usuario.email,
+                    rol: usuario.rol
+                }
+            });
         } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error en el server" });
@@ -131,5 +142,16 @@ export const eliminarUsuario = async (req, res) => {
         } catch (error) {
             console.error("Error al eliminar usuario:", error.message);
             res.status(500).json({ message: "Error al eliminar usuario", error: error });
+        }
+    };
+
+// Obtener todos los usuarios
+export const obtenerUsuarios = async (req, res) => {
+        try {
+            const usuarios = await Usuario.find();
+            res.status(200).json(usuarios);
+        } catch (error) {
+            console.error("Error al obtener usuarios:", error.message);
+            res.status(500).json({ message: "Error al obtener usuarios", error: error });
         }
     };

@@ -10,6 +10,9 @@
         <button mat-raised-button color="accent" [routerLink]="['/dashboard', 'empleados']">Módulo empleados</button>
       </div>
       <div class="logout-nav-item-container">
+        <ng-container *ngIf="isAdmin">
+          <button mat-raised-button color="primary" (click)="registrarUsuario()">Registrar nuevo usuario</button>
+        </ng-container>
         <button mat-raised-button color="warn" (click)="logout()">Cerrar Sesión</button>
       </div>
     </nav>

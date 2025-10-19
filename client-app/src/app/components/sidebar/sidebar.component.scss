@@ -31,6 +31,9 @@
     }
     .logout-nav-item-container {
       margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
   }
   nav button {
