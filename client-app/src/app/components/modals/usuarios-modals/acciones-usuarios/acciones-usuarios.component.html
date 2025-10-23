@@ -1,0 +1,93 @@
+<div class="modal-acciones-container">
+  <div class="modal-title">
+    <h1>Acciones para usuarios</h1>
+  </div>
+  <div class="herramienta-info">
+    <p>Nombre: {{ data.usuario.nombre }}</p>
+    <p>Apellido: {{ data.usuario.apellido }}</p>
+    <p>Email: {{ data.usuario.email }}</p>
+    <p>Id Personal: {{ data.usuario.id }}</p>
+    <p>Tipo de Rol: {{ data.usuario.rol }}</p>
+  </div>
+  <div class="modal-acciones">
+    <button mat-button (click)="editarUsuario()">Editar</button>
+    <button mat-button (click)="eliminarUsuario()">Eliminar</button>
+    <button mat-button (click)="cerrarModal()">Cerrar</button>
+  </div>
+
+  <form [formGroup]="usuarioActualizado" (ngSubmit)="onSubmit()">
+    <ng-container [ngSwitch]="accionSeleccionada">
+      <div class="acciones-container">
+        <!-- Eliminar -->
+        <div *ngSwitchCase="'eliminar'">
+          <div class="eliminar-form-container">
+            <p>
+              ¿Seguro que deseas eliminar el usuario
+              <b>{{ data.usuario.nombre }}</b
+              >?
+            </p>
+            <button mat-button class="btn-accion" type="submit">
+              Confirmar eliminación
+            </button>
+            <div *ngIf="mensajeExito" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle</span>
+              </mat-icon>
+              <p>{{mensajeExito}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actualizar -->
+        <div *ngSwitchCase="'actualizar'">
+          <div class="actualizar-form-container">
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Nombre de usuario</mat-label>
+                <input matInput formControlName="nombre" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Apellido de usuario</mat-label>
+                <input matInput formControlName="apellido" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Id Personal</mat-label>
+                <input matInput formControlName="id" />
+              </mat-form-field>
+            </div>
+            <div class="actualizar-form-colum">
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>rol</mat-label>
+                <input matInput formControlName="rol" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" />
+              </mat-form-field>
+            </div>
+            <button
+              mat-raised-button
+              [disabled]="usuarioActualizado.invalid"
+              class="btn-accion"
+              color="primary"
+              type="submit"
+            >
+              Actualizar
+            </button>
+            <div *ngIf="isLoading" class="herramienta-success-mensaje">
+              <mat-icon>
+                <span class="material-symbols-rounded">check_circle</span>
+              </mat-icon>
+              <p>Herramienta Actualizada con éxito</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+  </form>
+</div>

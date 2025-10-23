@@ -27,15 +27,9 @@ export class HistorialProyectosModalComponent {
   ) {}
 
   ngOnInit() {
-    console.log(this.data.proyectoId);
-
-    // this.store.select(ProyectoSelectors.selectObtenerProyectos).subscribe((proyectos: Proyecto[]) => {
-    //   this.dataSource = proyectos;
-    // });
     this.store.dispatch(proyectoActions.obtenerHerramientasPorProyecto({ proyectoId: this.data.proyectoId }));
     this.store.select(ProyectoSelectors.selectHerramientasPorProyecto).subscribe((herramientas: any[]) => {
       this.dataSource = herramientas;
-      console.log('herramientas del proyecto', this.dataSource);
     });
   }
 

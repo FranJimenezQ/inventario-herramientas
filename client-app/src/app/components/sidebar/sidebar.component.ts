@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { selectUsuario } from '../../store/auth/auth.selectors';
 import { Subscription } from 'rxjs';
-import { RegistrarUsuarioComponent } from '../modals/registrar-usuario/registrar-usuario.component';
+import { RegistrarUsuarioComponent } from '../modals/usuarios-modals/registrar-usuario/registrar-usuario.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,8 +23,6 @@ export class SidebarComponent {
   constructor(private dialog : MatDialog, private store: Store) {
     this.isAdminSubscriber = this.selectUsuario$.subscribe(usuario => {
       this.isAdmin = usuario?.rol === 'ADMIN';
-      console.log('isAdmin', this.isAdmin);
-
     });
   }
 

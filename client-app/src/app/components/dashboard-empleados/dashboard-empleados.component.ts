@@ -32,8 +32,6 @@ export class DashboardEmpleadosComponent implements OnInit {
     // Aquí puedes cargar los datos de los empleados desde un servicio o API
     this.empleadosDataSubscription = this.store.select(selectObtenerEmpleados).subscribe(empleados => {
       this.listaEmpleados = empleados;
-      console.log('Empleados cargados:', this.listaEmpleados);
-
     });
   }
   editarEmpleado( empleado: Empleado) {

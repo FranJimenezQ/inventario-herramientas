@@ -48,7 +48,6 @@ export class AccionesProyectosComponent implements OnInit {
       direccion: [this.data.proyecto.direccion, Validators.required]
     });
     this.proyectoSubscriber = this.store.select(proyectoSelectors.selectObtenerProyectos).subscribe(proyectos => {
-      console.log(proyectos);
       this.proyectosData = proyectos;
     });
   }

@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import empleadosRoutes from './routes/empleadoRoutes.js';
 import proyectosRoutes from './routes/proyectoRoutes.js';
 import movimientosRoutes from './routes/movimientosRoutes.js';
+import usuariosRoutes from './routes/usuariosRoutes.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.use('/api/herramientas', herramientaRoutes);
 app.use('/api/empleados', empleadosRoutes);
 app.use('/api/proyectos', proyectosRoutes);
 app.use('/api/movimientos', movimientosRoutes);
+//app.use('/api/usuarios', usuariosRoutes);
 
 app.use((req, res ) => {
     res.status(404).json({ message: 'Ruta no encontrada' });

@@ -33,8 +33,6 @@ export class DashboardProyectosComponent implements OnInit, OnDestroy {
     // Aquí puedes cargar los proyectos desde el store o un servicio
     this.proyectoSubscriber = this.store.select(proyectoSelectors.selectObtenerProyectos).subscribe(proyectos => {
       this.proyectos = proyectos;
-      console.log(this.proyectos);
-
       this.cdr.detectChanges();
     });
   }

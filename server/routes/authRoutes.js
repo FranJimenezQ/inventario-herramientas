@@ -8,6 +8,6 @@ router.post('/login', loginUsuario);
 router.post('/registrarUsuario', registrarUsuario);
 router.put('/actualizarUsuario/:_id', authMiddleware, actualizarUsuario);
 router.delete('/eliminarUsuario/:_id', authMiddleware, eliminarUsuario);
-router.get('/usuarios', authMiddleware, obtenerUsuarios);
+router.get('/obtenerUsuarios', authMiddleware, obtenerUsuarios);
 
 export default router;

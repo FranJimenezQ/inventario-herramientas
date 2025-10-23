@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { cargarProyectos } from '../../store/proyectos/proyectos.actions';
 import { cargarEmpleados } from '../../store/empleados/empleados.actions';
 import { selectUsuario } from '../../store/auth/auth.selectors';
+import { cargarUsuarios } from '../../store/usuarios/usuarios.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,9 +37,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.store.dispatch(cargarEmpleados());
         this.selectUsuarioSubscriber = this.store.select(selectUsuario).subscribe(usuario => {
           if (usuario) {
-            console.log('Usuario logeado:', usuario);
+            if (usuario.rol === 'ADMIN') {
+              this.store.dispatch(cargarUsuarios());
+            }
           } else {
-            console.log('No hay usuario logeado');
+            //console.log('No hay usuario logeado');
+            return;
           }
         });
     }

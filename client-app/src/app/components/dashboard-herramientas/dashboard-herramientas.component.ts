@@ -36,7 +36,6 @@ export class DashboardHerramientasComponent implements OnInit, OnDestroy {
     this.selectHerramientasSubscriber = this.store.select(selectTodasHerramientas).subscribe(herramientas => {
       this.listaHerramientas = [...herramientas];
       this.cdr.detectChanges();
-      console.log(this.listaHerramientas);
     });
   }
 

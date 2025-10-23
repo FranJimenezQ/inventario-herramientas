@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AppState } from '../store/appState';
-import { Usuario } from '../store/usuarios/usuarios.state';
+import { AppState } from '../../store/appState';
+import { Usuario } from '../../store/usuarios/usuarios.state';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
-  private usuarios: Usuario[] = [];
-  private baseUrl = 'http://localhost:3000/api/usuarios';
+  //private usuarios: Usuario[] = [];
+  private baseUrl = 'http://localhost:3000/api/auth';
   constructor(private http: HttpClient) { }
   protected getAuthHeaders() {
     const token = sessionStorage.getItem('token');
@@ -16,7 +16,7 @@ export class UsuariosService {
   }
 
   obtenerUsuarios() {
-    return this.http.get<Usuario[]>(this.baseUrl, { headers: this.getAuthHeaders() });
+    return this.http.get<Usuario[]>(`${this.baseUrl}/obtenerUsuarios`, { headers: this.getAuthHeaders() });
   }
 
   registrarUsuario(usuario: Usuario) {

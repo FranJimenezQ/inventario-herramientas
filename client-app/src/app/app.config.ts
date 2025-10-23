@@ -17,6 +17,8 @@ import { proyectosReducer } from './store/proyectos/proyectos.reducers';
 import { ProyectosEffects } from './store/proyectos/proyectos.effects';
 import { movimientoReducer } from './store/movimientos/movimiento.reducers';
 import { MovimientoEffects } from './store/movimientos/movimiento.effects';
+import { UsuariosEffects } from './store/usuarios/usuarios.effects';
+import { usuariosReducer } from './store/usuarios/usuarios.reducers';
 
 
 export const appConfig: ApplicationConfig = {
@@ -26,7 +28,8 @@ export const appConfig: ApplicationConfig = {
       herramientas: herramientasReducer,
       empleados: empleadosReducer,
       proyectos: proyectosReducer,
-      movimientos: movimientoReducer
+      movimientos: movimientoReducer,
+      usuarios: usuariosReducer
     }),
     provideEffects(
       [
@@ -34,7 +37,8 @@ export const appConfig: ApplicationConfig = {
         HerramientasEffects,
         EmpleadosEffects,
         ProyectosEffects,
-        MovimientoEffects
+        MovimientoEffects,
+        UsuariosEffects
       ]
     ),
     ...(isDevMode() ? [provideStoreDevtools()] : [])

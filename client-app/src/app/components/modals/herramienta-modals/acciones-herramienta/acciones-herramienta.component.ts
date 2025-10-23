@@ -57,16 +57,13 @@ export class AccionesHerramientaComponent {
   }
 
   ngOnInit() {
-    console.log(this.data.herramienta);
     this.obtenerEmpleadosSuccessSubscriber = this.store.select(empleadoSelectors.selectObtenerEmpleados).subscribe(empleados => {
       if (empleados) {
-        console.log('empleados', empleados);
         this.empleados = empleados;
       }
     });
     this.obtenerProyectosSuccessSubscriber = this.store.select(proyectoSelectors.selectObtenerProyectos).subscribe(proyectos => {
       if (proyectos) {
-        console.log('proyectos', proyectos);
         this.proyectos = proyectos;
       }
     });
@@ -121,7 +118,6 @@ export class AccionesHerramientaComponent {
         this.store.dispatch(herramientaActions.eliminarHerramienta({ _id: this.data.herramienta._id! }));
         this.herramientaEliminadaSuccesSubscriber = this.store.select(herramientaSelectors.selectHerramientaEliminada).subscribe(eliminada => {
           if (eliminada) {
-            console.log('Herramienta eliminada con éxito', eliminada);
             this.isLoading = true
             setTimeout(() => {
               this.isLoading = false;
@@ -132,7 +128,6 @@ export class AccionesHerramientaComponent {
         break;
       case 'actualizar':
         // lógica para actualizar la herramienta
-
         if (this.accionFormGroup.invalid) { return; }
         const { nombre, marca, modelo, tipo, numeroSerie, estado } = this.accionFormGroup.value;
         const herramientaActualizada = { nombre, marca, modelo, tipo, numeroSerie, estado };
@@ -140,18 +135,6 @@ export class AccionesHerramientaComponent {
         this.isLoading = true;
         // Cierra el modal inmediatamente, el dashboard ya está suscrito al store
         this.dialogRef.close(true);
-        // Suscripción para escuchar la actualizacións
-        // this.herramientaActualizadaSubscriber = this.store.select(herramientaSelectors.selectHerramientaActualizada).subscribe(actualizada => {
-        //   console.log(actualizada);
-        //   if (actualizada) {
-        //     this.isLoading = true
-        //     setTimeout(() => {
-        //       this.isLoading = false;
-        //       console.log('Herramienta actualizada con éxito', actualizada);
-        //       this.dialogRef.close(true);
-        //     }, 2000);
-        //   }
-        //});
         break;
       case 'asignar':
         // logica para asignar

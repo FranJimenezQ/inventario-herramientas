@@ -49,20 +49,17 @@ export class LoginComponent {
 
     this.selectTokenSubscriber = this.store.pipe(select(selectToken)).subscribe(token => {
       if (token) {
-        console.log(token);
         this.mensageExitoLogin = 'Login exitoso';
         setTimeout(() => {
           this.Router.navigate(['/dashboard']);
         }, 1500);
       }else {
-        console.log('No hay token');
         this.passwordControl.setErrors({ invalidToken: true });
       }
     });
 
     this.selectTokenErrorSubscriber = this.store.pipe(select(state => state.auth.error)).subscribe(error => {
       if (error) {
-        console.log(error);
         this.passwordControl.setErrors({ invalidToken: true });
       }
     });
@@ -77,12 +74,8 @@ export class LoginComponent {
 
    login(): void {
      if (this.emailControl.valid && this.passwordControl.valid) {
-      console.log(this.loginForm.value);
-
       this.store.dispatch(login({ email: this.loginForm.value.email ?? '', password: this.loginForm.value.password ?? ''}));
      }else{
-      console.log('No son válidos los campos', this.loginForm.get('email')?.errors, this.loginForm.get('password')?.errors);
-
       return
      }
    }

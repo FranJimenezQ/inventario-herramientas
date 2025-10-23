@@ -1,0 +1,48 @@
+mat-chip-set {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  mat-chip {
+    background-color: #97c3c3;
+  }
+}
+
+table {
+  width: 100%;
+  border-radius: 12px;
+  th {
+    background-color: #ebf9f4;
+    color: black;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  .btn-acciones {
+    background-color: #3c6868;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-right: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken(#2b4a4a, 30%);
+    }
+  }
+}
+/* Altura para las tablas y scroll */
+.tabla-scroll {
+  max-height: 600px; /* Ajusta según tu necesidad */
+  overflow-y: auto;
+  width: 100%;
+}
+
+

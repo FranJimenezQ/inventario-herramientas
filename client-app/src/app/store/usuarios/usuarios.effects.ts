@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { AppState } from "../appState";
-import { UsuariosService } from "../../services/usuarios.service";
+import { UsuariosService } from "../../services/usuarios/usuarios.service";
 import * as usuariosActions from './usuarios.actions';
 import { catchError, map, mergeMap, of } from "rxjs";
 import { Usuario } from "./usuarios.state";

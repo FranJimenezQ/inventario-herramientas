@@ -5,6 +5,7 @@ import { userAuthGuard } from './guards/user-auth.guard';
 import { DashboardProyectosComponent } from './components/dashboard-proyectos/dashboard-proyectos.component';
 import { DashboardHerramientasComponent } from './components/dashboard-herramientas/dashboard-herramientas.component';
 import { DashboardEmpleadosComponent } from './components/dashboard-empleados/dashboard-empleados.component';
+import { DashboardUsuariosComponent } from './components/dashboard-usuarios/dashboard-usuarios.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ export const routes: Routes = [
         { path: 'herramientas', component: DashboardHerramientasComponent },
         { path: 'proyectos', component: DashboardProyectosComponent },
         { path: 'empleados', component: DashboardEmpleadosComponent },
+        { path: 'usuarios', component: DashboardUsuariosComponent },
         //{ path: 'movimientos', component: DashboardMovimientosComponent },
       ]
      },
