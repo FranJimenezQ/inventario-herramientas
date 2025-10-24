@@ -63,7 +63,6 @@ export class RegistrarProyectoComponent implements OnInit {
     // Lógica para registrar el proyecto
     const nuevoProyecto = this.proyectoForm.value;
     this.store.dispatch(crearProyecto({ proyecto: nuevoProyecto }));
-    console.log('Proyecto registrado:', nuevoProyecto);
   }
   public closeModal() {
     this.dialogRef.close();
