@@ -105,4 +105,34 @@ on(movimientoActions.devolverHerramientaSuccess, (state, { herramienta }) => ({
     error
   })),
 
+  //Limpiar el estado de success y error al crear herramienta
+  on(herramientasActions.limpiarEstadoCrearHerramienta, (state) => ({
+    ...state,
+    crear: {
+      ...state.crear,
+      success: false,
+      error: null
+    }
+  })),
+
+  //Limpiar el estado de success y error al actualizar herramienta
+  on(herramientasActions.limpiarEstadoActualizarHerramienta, (state) => ({
+    ...state,
+    actualizar: {
+      ...state.actualizar,
+      success: false,
+      error: null
+    }
+  })),
+
+  //Limpiar el estado de success y error al eliminar herramienta
+  on(herramientasActions.limpiarEstadoEliminarHerramienta, (state) => ({
+    ...state,
+    eliminar: {
+      ...state.eliminar,
+      success: false,
+      error: null
+    }
+  }))
 );
+

@@ -115,7 +115,8 @@ export class AccionesHerramientaComponent {
     switch (this.accionSeleccionada) {
       case 'eliminar':
         //logica
-        this.store.dispatch(herramientaActions.eliminarHerramienta({ _id: this.data.herramienta._id! }));
+        if (!idHerramienta) { return; }
+        this.store.dispatch(herramientaActions.eliminarHerramienta({ _id: idHerramienta }));
         this.herramientaEliminadaSuccesSubscriber = this.store.select(herramientaSelectors.selectHerramientaEliminada).subscribe(eliminada => {
           if (eliminada) {
             this.isLoading = true

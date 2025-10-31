@@ -95,5 +95,38 @@ export class HerramientasEffects {
       )
     );
 
+  //Efecto para limpiar el estado de success y error al crear herramienta
+    limpiarEstadoCrearHerramienta$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(herramientasActions.limpiarEstadoCrearHerramienta),
+        map(() => {
+          // Aquí no hacemos nada, solo limpiamos el estado en el reducer
+          return { type: '[Herramientas] Estado Crear Herramienta Limpio' };
+        })
+      )
+    , { dispatch: false });
+
+    //Efecto para limpiar el estado de success y error al actualizar herramienta
+    limpiarEstadoActualizarHerramienta$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(herramientasActions.limpiarEstadoActualizarHerramienta),
+        map(() => {
+          // Aquí no hacemos nada, solo limpiamos el estado en el reducer
+          return { type: '[Herramientas] Estado Actualizar Herramienta Limpio' };
+        })
+      )
+    , { dispatch: false });
+
+    //Efecto para limpiar el estado de success y error al eliminar herramienta
+    limpiarEstadoEliminarHerramienta$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(herramientasActions.limpiarEstadoEliminarHerramienta),
+        map(() => {
+          // Aquí no hacemos nada, solo limpiamos el estado en el reducer
+          return { type: '[Herramientas] Estado Eliminar Herramienta Limpio' };
+        })
+      )
+    , { dispatch: false });
+
 }
 

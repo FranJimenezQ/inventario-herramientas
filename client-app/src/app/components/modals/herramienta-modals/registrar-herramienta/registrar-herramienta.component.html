@@ -33,9 +33,23 @@
       <button mat-button (click)="cerrarModal()">Cancelar</button>
       <button mat-raised-button type="submit" [disabled]="herramientaForm.invalid">Crear</button>
     </div>
-    <div class="spinner-container">
+    <!-- <div class="spinner-container">
       <mat-spinner *ngIf="isLoading"></mat-spinner>
-    </div>
+    </div> -->
   </form>
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="error-message">
+    <mat-icon>
+      <span class="material-symbols-rounded">error</span>
+    </mat-icon>
+    <p>{{ errorMessage }}</p>
+  </div>
+  <!-- Mensaje de éxito -->
+  <div *ngIf="successMessage" class="herramienta-success-mensaje">
+    <mat-icon>
+      <span class="material-symbols-rounded">check_circle</span>
+    </mat-icon>
+    <p>{{ successMessage }}</p>
+  </div>
 
 </div>

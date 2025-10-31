@@ -150,3 +150,18 @@ export const devolverHerramientaFailure = createAction(
   '[Herramientas] Devolver Herramienta Failure',
   props<{ error: any }>()
 );
+
+//Acciones para limpiar el estado de success y error al crear herramienta
+export const limpiarEstadoCrearHerramienta = createAction(
+  '[Herramientas] Limpiar Estado Crear Herramienta'
+);
+
+//Acciones para limpiar el estado de success y error al actualizar herramienta
+export const limpiarEstadoActualizarHerramienta = createAction(
+  '[Herramientas] Limpiar Estado Actualizar Herramienta'
+);
+
+//Acciones para limpiar el estado de success y error al eliminar herramienta
+export const limpiarEstadoEliminarHerramienta = createAction(
+  '[Herramientas] Limpiar Estado Eliminar Herramienta'
+);

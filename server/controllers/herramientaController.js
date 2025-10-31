@@ -10,6 +10,11 @@ export const crearHerramienta = async (req, res) => {
     
     try {
         const { nombre, marca, modelo, tipo, numeroSerie, estado } = req.body
+        //Validar si el numero de serie ya existe
+        const herramientaExistente = await Herramienta.findOne({ numeroSerie: numeroSerie });
+        if (herramientaExistente) {
+            return res.status(400).json({ message: 'Número de serie ya existe' });
+        }
 
         const nuevaHerramienta = new Herramienta({nombre, marca, modelo, tipo, numeroSerie, estado});
         await nuevaHerramienta.save();
@@ -116,8 +121,8 @@ export const actualizarHerramienta = async (req, res) => {
 
 export const eliminarHerramienta = async (req, res) => {
     try {
-        const {_id} = req.params;
-        const herramientaEliminada = await Herramienta.findByIdAndDelete(_id);
+        const {id} = req.params;
+        const herramientaEliminada = await Herramienta.findByIdAndDelete(id);
 
         if (!herramientaEliminada) {
             return res.status(404).json({message: 'Herramienta no encontrada'});
