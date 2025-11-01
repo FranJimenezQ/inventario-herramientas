@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Movimiento } from '../../store/movimientos/movimiento.state';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovimientosService {
-  private baseUrl = 'http://localhost:3000/api/movimientos';
+  private baseUrl = `${environment.apiUrl}/movimientos`;
 
     protected getAuthHeaders() {
     const token = sessionStorage.getItem('token');

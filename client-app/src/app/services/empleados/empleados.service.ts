@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Empleado } from '../../store/empleados/empleados.state';
+import { environment } from '../../../environments/environments';
 @Injectable({
   providedIn: 'root'
 })
 export class EmpleadosService {
 
   constructor(private httpClient: HttpClient) { }
-  private baseUrl = 'http://localhost:3000/api/empleados';
+  private baseUrl = `${environment.apiUrl}/empleados`;
   protected getAuthHeaders() {
     const token = sessionStorage.getItem('token');
     return { Authorization: `Bearer ${token}` };

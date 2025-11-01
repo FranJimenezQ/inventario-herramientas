@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { AppState } from '../../store/appState';
 import { Usuario } from '../../store/usuarios/usuarios.state';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
   //private usuarios: Usuario[] = [];
-  private baseUrl = 'http://localhost:3000/api/auth';
+  private baseUrl = `${environment.apiUrl}/auth`;
   constructor(private http: HttpClient) { }
   protected getAuthHeaders() {
     const token = sessionStorage.getItem('token');

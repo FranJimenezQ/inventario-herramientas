@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Proyecto } from '../../store/proyectos/proyectos.states';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ProyectosService {
     const token = sessionStorage.getItem('token');
     return { Authorization: `Bearer ${token}` };
   }
-  private baseUrl = 'http://localhost:3000/api/proyectos';
+  private baseUrl = `${environment.apiUrl}/proyectos`;
 
   // Obtener todos los proyectos
   obtenerProyectos(): Observable<Proyecto[]> {
