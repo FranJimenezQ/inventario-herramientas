@@ -18,7 +18,7 @@ connectDB();
 //CORS configuration for production
 const allowedOrigins = process.env.FRONTEND_URL.split(',');
 const corsOptions = {
-    origin: allowedOrigins,
+    origin: 'https://inventario-herramientas-mocha.vercel.app',
     credentials: true,
     optionsSuccessStatus: 200,
 }
