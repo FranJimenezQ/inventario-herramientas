@@ -16,8 +16,9 @@ connectDB();
 //app.use(cors());
 
 //CORS configuration for production
+const allowedOrigins = process.env.FRONTEND_URL.split(',');
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:4200',
+    origin: allowedOrigins,
     credentials: true,
     optionsSuccessStatus: 200,
 }
