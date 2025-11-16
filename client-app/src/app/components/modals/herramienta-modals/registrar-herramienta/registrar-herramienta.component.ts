@@ -39,6 +39,10 @@ export class RegistrarHerramientaComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+      // Limpiar el estado de crear herramienta al abrir el modal
+      this.store.dispatch(limpiarEstadoCrearHerramienta());
+      this.errorMessage = '';
+      this.successMessage = '';
       // Initialize form or fetch data if needed
       this.herramientaForm = this.fb.group({
         nombre: ['', Validators.required],
