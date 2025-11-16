@@ -62,7 +62,7 @@ export class RegistrarHerramientaComponent implements OnInit, OnDestroy {
             this.successMessage = 'Herramienta creada con éxito';
             setTimeout(() => {
               this.cerrarModal();
-            }, 75000);
+            }, 7500);
           }
         })
       );
