@@ -27,10 +27,11 @@ export const devolverHerramienta = async (req, res) => {
         return res.status(400).json({ message: 'Fecha de devolución requerida' });
     }
 
+    const herramientaObjectId = mongoose.Types.ObjectId(herramientaId);
     console.log('HerramientaId: ', herramientaId);
-    
-    const movimiento = await Movimiento.findOne({ 
-      herramientaId: herramientaId, 
+
+    const movimiento = await Movimiento.findOne({
+      herramientaId: herramientaObjectId,
       fechaDevolucion: null
     }).sort( {fechaDePrestamo: -1});
 

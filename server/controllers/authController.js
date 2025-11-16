@@ -85,11 +85,11 @@ export const loginUsuario = async (req, res) => {
 
 //Actualizar Usuario
 export const actualizarUsuario = async (req, res) => {
-        const { id } = req.params;
+        const { _id } = req.params;
         const nuevosDatos = req.body || {};
 
         try {
-            const usuarioExistente = await Usuario.findOne({id});
+            const usuarioExistente = await Usuario.findOne({_id});
             if (!usuarioExistente) {
                 return res.status(404).json({ message: "Usuario no encontrado" });
             }
@@ -106,7 +106,7 @@ export const actualizarUsuario = async (req, res) => {
         }
 
         const usuarioActualizado = await Usuario.findOneAndUpdate(
-            { id }, 
+            { _id }, 
             { $set: nuevosDatos }, 
             { new: true, runValidators: true }
         );
